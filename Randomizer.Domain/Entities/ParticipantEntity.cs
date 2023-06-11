@@ -10,5 +10,5 @@ public class ParticipantEntity : IEntity
 
     public Guid StartGameConfigId { get; set; }
 
-    public StartGameConfigEntity? StartGameConfig { get; set; }
+    public GameConfigEntity? StartGameConfig { get; set; }
 }

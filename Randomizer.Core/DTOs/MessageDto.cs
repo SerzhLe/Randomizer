@@ -1,0 +1,8 @@
+﻿namespace Randomizer.Core.DTOs;
+
+public record MessageDto
+{
+    public Guid Id { get; init; }
+
+    public string Content { get; init; } = string.Empty;
+}

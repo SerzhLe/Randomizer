@@ -2,7 +2,7 @@
 
 namespace Randomizer.Domain.Entities;
 
-public class StartGameConfigEntity : IEntity
+public class GameConfigEntity : IEntity
 {
     public Guid Id { get; set; }
 
