@@ -8,6 +8,8 @@ public class ParticipantEntity : IEntity
 
     public string NickName { get; set; } = string.Empty;
 
+    public int Position { get; set; }
+
     public Guid StartGameConfigId { get; set; }
 
     public GameConfigEntity? StartGameConfig { get; set; }

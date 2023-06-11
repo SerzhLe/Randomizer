@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Randomizer.Core.DTOs;
+﻿namespace Randomizer.Core.DTOs;
 
 public record GameConfigDto
 {

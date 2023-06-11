@@ -13,4 +13,6 @@ public class GameConfigEntity : IEntity
     public List<ParticipantEntity> Participants { get; set; } = new();
 
     public List<MessageEntity> Messages { get; set; } = new();
+
+    public List<RoundEntity> Rounds { get; set; } = new();
 }

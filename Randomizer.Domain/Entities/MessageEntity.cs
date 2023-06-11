@@ -8,6 +8,8 @@ public class MessageEntity : IEntity
 
     public string Content { get; set; } = string.Empty;
 
+    public int Position { get; set; }
+
     public Guid StartGameConfigId { get; set; }
 
     public GameConfigEntity? StartGameConfig { get; set; }
