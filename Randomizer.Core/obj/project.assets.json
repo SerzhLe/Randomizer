@@ -2,6 +2,16 @@
   "version": 3,
   "targets": {
     "net6.0": {
+      "Randomizer.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Randomizer.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Randomizer.Common.dll": {}
+        }
+      },
       "Randomizer.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -15,6 +25,11 @@
     }
   },
   "libraries": {
+    "Randomizer.Common/1.0.0": {
+      "type": "project",
+      "path": "../Randomizer.Common/Randomizer.Common.csproj",
+      "msbuildProject": "../Randomizer.Common/Randomizer.Common.csproj"
+    },
     "Randomizer.Domain/1.0.0": {
       "type": "project",
       "path": "../Randomizer.Domain/Randomizer.Domain.csproj",
@@ -23,6 +38,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Randomizer.Common >= 1.0.0",
       "Randomizer.Domain >= 1.0.0"
     ]
   },
@@ -53,6 +69,9 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
+            "C:\\FunnyProjects\\RandomizerApi\\Randomizer.Common\\Randomizer.Common.csproj": {
+              "projectPath": "C:\\FunnyProjects\\RandomizerApi\\Randomizer.Common\\Randomizer.Common.csproj"
+            },
             "C:\\FunnyProjects\\RandomizerApi\\Randomizer.Domain\\Randomizer.Domain.csproj": {
               "projectPath": "C:\\FunnyProjects\\RandomizerApi\\Randomizer.Domain\\Randomizer.Domain.csproj"
             }

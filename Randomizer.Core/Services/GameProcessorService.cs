@@ -1,4 +1,5 @@
-﻿using Randomizer.Core.Abstractions;
+﻿using Randomizer.Common;
+using Randomizer.Core.Abstractions;
 using Randomizer.Core.Abstractions.Infrastructure;
 using Randomizer.Core.Abstractions.Persistence;
 using Randomizer.Core.DTOs;
@@ -19,13 +20,13 @@ public class GameProcessorService
         _validator = validator;
     }
 
-    public async Task<GameConfigDto> StartGame(CreateGameConfigDto gameConfig)
+    public async Task<Result<GameConfigDto>> StartGame(CreateGameConfigDto gameConfig)
     {
         var validationResult = _validator.ValidateStartGame(gameConfig);
 
-        if (!validationResult)
+        if (!validationResult.IsValid)
         {
-            return new GameConfigDto();
+            return Result<GameConfigDto>.ValidationError(validationResult.ValidationErrors);
         }
 
         var gameConfigEntity = new GameConfigEntity
@@ -46,7 +47,7 @@ public class GameProcessorService
 
         var result = await _uow.GameConfigRepository.GetById(gameConfigEntity.Id);
 
-        return new GameConfigDto
+        return Result<GameConfigDto>.Success(new GameConfigDto
         {
             Id = result.Id,
             DisplayId = result.DisplayId,
@@ -57,10 +58,10 @@ public class GameProcessorService
             Participants = result.Participants
                 .Select(x => new ParticipantDto { Id = x.Id, NickName = x.NickName, Position = x.Position })
                 .ToList()
-        };
+        });
     }
 
-    public async Task<RoundResultDto> GetRandomData(Guid gameConfigId)
+    public async Task<Result<RoundResultDto>> GetRandomData(Guid gameConfigId)
     {
         // get full with all related objects
         var gameData = await _uow.GameConfigRepository.GetById(gameConfigId);
@@ -68,7 +69,7 @@ public class GameProcessorService
         // move to validation part
         if (gameData is null)
         {
-            return new RoundResultDto();
+            return Result<RoundResultDto>.ServerError("", 0);
         }
 
         var currentRound = gameData.Rounds.SingleOrDefault(x => x.IsCurrent);
@@ -76,7 +77,7 @@ public class GameProcessorService
         // move to validation part
         if (currentRound is null)
         {
-            return new RoundResultDto();
+            return Result<RoundResultDto>.ServerError("", 0);
         }
 
         int whoPerformActionPosition, whoPerformFeedbackPosition, messagePosition;
@@ -129,7 +130,7 @@ public class GameProcessorService
         await _uow.SaveChangesAsync();
 
         // add logic for fetching Id
-        return new RoundResultDto
+        return Result<RoundResultDto>.Success(new RoundResultDto
         {
             WhoPerformAction = new ParticipantDto
             {
@@ -149,7 +150,7 @@ public class GameProcessorService
                 Content = message.Content,
                 Position = message.Position
             }
-        };
+        });
     }
 }
 

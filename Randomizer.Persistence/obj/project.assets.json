@@ -118,10 +118,21 @@
           "buildTransitive/netcoreapp3.1/_._": {}
         }
       },
+      "Randomizer.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Randomizer.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Randomizer.Common.dll": {}
+        }
+      },
       "Randomizer.Core/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "Randomizer.Common": "1.0.0",
           "Randomizer.Domain": "1.0.0"
         },
         "compile": {
@@ -346,6 +357,11 @@
         "system.runtime.compilerservices.unsafe.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "Randomizer.Common/1.0.0": {
+      "type": "project",
+      "path": "../Randomizer.Common/Randomizer.Common.csproj",
+      "msbuildProject": "../Randomizer.Common/Randomizer.Common.csproj"
     },
     "Randomizer.Core/1.0.0": {
       "type": "project",
