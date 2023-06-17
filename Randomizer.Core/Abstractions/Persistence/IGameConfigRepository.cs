@@ -9,7 +9,5 @@ public interface IGameConfigRepository
 
     Task<GameConfigEntity?> GetLastCreated();
 
-    void Add(GameConfigEntity entity);
-
-    Task<int> SaveChangesAsync();
+    Task AddAsync(GameConfigEntity entity);
 }

@@ -6,7 +6,5 @@ public interface IRoundRepository
 {
     Task<RoundEntity> GetById(Guid id);
 
-    void Add(RoundEntity entity);
-
-    Task<int> SaveChangesAsync();
+    Task AddAsync(RoundEntity entity);
 }

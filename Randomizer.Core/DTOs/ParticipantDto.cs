@@ -6,6 +6,6 @@ public record ParticipantDto
 
     public string NickName { get; init; } = string.Empty;
 
-    public int Position { get; set; }
+    public int Position { get; init; }
 }
 

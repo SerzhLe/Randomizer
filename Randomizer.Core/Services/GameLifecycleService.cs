@@ -7,12 +7,12 @@ namespace Randomizer.Core.Services;
 
 public class GameLifecycleService
 {
-    private readonly IGameConfigRepository _gameConfigRepository;
+    private readonly IUnitOfWork _uow;
     private readonly IRandomService _randomService;
 
-    public GameLifecycleService(IGameConfigRepository gameConfigRepository, IRandomService randomService)
+    public GameLifecycleService(IUnitOfWork uow, IRandomService randomService)
     {
-        _gameConfigRepository = gameConfigRepository;
+        _uow=uow;
         _randomService = randomService;
     }
 
@@ -38,11 +38,11 @@ public class GameLifecycleService
                 .ToList()
         };
 
-        _gameConfigRepository.Add(gameConfigEntity);
+        await _uow.GameConfigRepository.AddAsync(gameConfigEntity);
 
-        await _gameConfigRepository.SaveChangesAsync();
+        await _uow.SaveChangesAsync();
 
-        var result = await _gameConfigRepository.GetLastCreated();
+        var result = await _uow.GameConfigRepository.GetLastCreated();
 
         return new GameConfigDto
         {
@@ -61,7 +61,7 @@ public class GameLifecycleService
     public async Task<RoundResultDto> GetRandomData(Guid gameConfigId)
     {
         // get full with all related objects
-        var gameData = await _gameConfigRepository.GetById(gameConfigId);
+        var gameData = await _uow.GameConfigRepository.GetById(gameConfigId);
 
         // move to validation part
         if (gameData is null)
@@ -124,7 +124,7 @@ public class GameLifecycleService
             WhoPerformFeedbackId = whoPerformFeedback.Id,
         });
 
-        await _gameConfigRepository.SaveChangesAsync();
+        await _uow.SaveChangesAsync();
 
         // add logic for fetching Id
         return new RoundResultDto

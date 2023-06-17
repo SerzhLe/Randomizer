@@ -6,5 +6,5 @@ public record MessageDto
 
     public string Content { get; init; } = string.Empty;
 
-    public int Position { get; set; }
+    public int Position { get; init; }
 }
