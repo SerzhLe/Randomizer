@@ -6,8 +6,6 @@ public interface IUnitOfWork
 
     IRoundRepository RoundRepository { get; }
 
-    Task<int> SaveChangesAsync();
-
-    Task RollBack();
+    Task SaveChangesAsync();
 }
 
