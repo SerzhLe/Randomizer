@@ -1,4 +1,5 @@
-﻿using Randomizer.Core.Abstractions.Infrastructure;
+﻿using Randomizer.Core.Abstractions;
+using Randomizer.Core.Abstractions.Infrastructure;
 using Randomizer.Core.Abstractions.Persistence;
 using Randomizer.Core.DTOs;
 using Randomizer.Domain.Entities;
@@ -9,18 +10,18 @@ public class GameProcessorService
 {
     private readonly IUnitOfWork _uow;
     private readonly IRandomService _randomService;
+    private readonly ICoreValidator _validator;
 
-    public GameProcessorService(IUnitOfWork uow, IRandomService randomService)
+    public GameProcessorService(IUnitOfWork uow, IRandomService randomService, ICoreValidator validator)
     {
-        _uow=uow;
+        _uow = uow;
         _randomService = randomService;
+        _validator = validator;
     }
 
     public async Task<GameConfigDto> StartGame(CreateGameConfigDto gameConfig)
     {
-        // validation goes here
-        // ...
-        var validationResult = true;
+        var validationResult = _validator.ValidateStartGame(gameConfig);
 
         if (!validationResult)
         {

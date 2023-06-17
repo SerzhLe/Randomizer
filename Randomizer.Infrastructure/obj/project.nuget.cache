@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "sUvpAIYzdE+ZeOMJOUqcWKevryafsiikitsAHS7wJRu45kExA0Q+FpRJw/J+Nvan2HklySIWqfahDF8EDtsGgg==",
+  "dgSpecHash": "Go+G8BEq6MYqw50qhmXhwsuIk9r3tOUXq/6WMEzmsV5fw5h0MugyuIl62nRorD7yuUR05Isu5j9Ac+x3ZX1IhA==",
   "success": true,
   "projectFilePath": "C:\\FunnyProjects\\RandomizerApi\\Randomizer.Infrastructure\\Randomizer.Infrastructure.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\leshchenko.s\\.nuget\\packages\\fluentvalidation\\11.5.2\\fluentvalidation.11.5.2.nupkg.sha512",
     "C:\\Users\\leshchenko.s\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512"
   ],
   "logs": []
