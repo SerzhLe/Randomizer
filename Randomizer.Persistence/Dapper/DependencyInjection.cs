@@ -6,7 +6,7 @@ using Randomizer.Core.Abstractions.Persistence;
 namespace Randomizer.Persistence.Dapper; 
 public static class DependencyInjection 
 { 
-    public static void AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>(provider =>
         {
@@ -14,5 +14,7 @@ public static class DependencyInjection
 
             return new UnitOfWork(new NpgsqlConnection(connectionString));
         });
+
+        return services;
     }
 }

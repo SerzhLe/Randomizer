@@ -5,12 +5,12 @@ using Randomizer.Domain.Entities;
 
 namespace Randomizer.Core.Services;
 
-public class GameLifecycleService
+public class GameProcessorService
 {
     private readonly IUnitOfWork _uow;
     private readonly IRandomService _randomService;
 
-    public GameLifecycleService(IUnitOfWork uow, IRandomService randomService)
+    public GameProcessorService(IUnitOfWork uow, IRandomService randomService)
     {
         _uow=uow;
         _randomService = randomService;
@@ -43,7 +43,7 @@ public class GameLifecycleService
 
         await _uow.SaveChangesAsync();
 
-        var result = await _uow.GameConfigRepository.GetLastCreated();
+        var result = await _uow.GameConfigRepository.GetById(gameConfigEntity.Id);
 
         return new GameConfigDto
         {

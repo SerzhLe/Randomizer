@@ -6,12 +6,6 @@
 public interface IRandomService
 {
     /// <summary>
-    /// Generate random number.
-    /// </summary>
-    /// <returns></returns>
-    int GetRandomNumber();
-
-    /// <summary>
     /// Generate random number in range.
     /// </summary>
     /// <param name="minValue">The inclusive lower bound of random number.</param>
