@@ -1,5 +1,4 @@
-﻿using Npgsql;
-using Randomizer.Core.Abstractions.Persistence;
+﻿using Randomizer.Core.Abstractions.Persistence;
 using System.Data;
 
 namespace Randomizer.Persistence.Dapper;

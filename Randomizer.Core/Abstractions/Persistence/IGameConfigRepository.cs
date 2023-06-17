@@ -7,7 +7,5 @@ public interface IGameConfigRepository
 {
     Task<GameConfigEntity?> GetById(Guid id);
 
-    Task<GameConfigEntity?> GetLastCreated();
-
     Task AddAsync(GameConfigEntity entity);
 }

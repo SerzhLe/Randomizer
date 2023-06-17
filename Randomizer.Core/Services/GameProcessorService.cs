@@ -29,6 +29,7 @@ public class GameLifecycleService
 
         var gameConfigEntity = new GameConfigEntity
         {
+            Id = Guid.NewGuid(),
             CountOfRounds = gameConfig.CountOfRounds,
             Messages = gameConfig.Messages
                 .Select((x, i) => new MessageEntity { Content = x.Content, Position = i })
