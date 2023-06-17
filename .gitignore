@@ -1,2 +1,5 @@
 # Ignore basic .NET folder
 .vs
+
+**/bin
+**/obj
