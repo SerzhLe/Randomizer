@@ -4,6 +4,7 @@ using Randomizer.Core.Abstractions.Infrastructure;
 using Randomizer.Core.Abstractions.Persistence;
 using Randomizer.Core.DTOs;
 using Randomizer.Domain.Entities;
+using System.Diagnostics;
 
 namespace Randomizer.Core.Services;
 
@@ -63,21 +64,23 @@ public class GameProcessorService
 
     public async Task<Result<RoundResultDto>> GetRandomData(Guid gameConfigId)
     {
-        // get full with all related objects
         var gameData = await _uow.GameConfigRepository.GetById(gameConfigId);
 
-        // move to validation part
         if (gameData is null)
         {
-            return Result<RoundResultDto>.ServerError("", 0);
+            return Result<RoundResultDto>.Error(ErrorMessages.GameConfigNotFound, ApiErrorCodes.NotFound);
         }
 
         var currentRound = gameData.Rounds.SingleOrDefault(x => x.IsCurrent);
 
-        // move to validation part
         if (currentRound is null)
         {
-            return Result<RoundResultDto>.ServerError("", 0);
+            return Result<RoundResultDto>.Error(ErrorMessages.CurrentRoundNotFound, ApiErrorCodes.NotFound);
+        }
+
+        if (currentRound.RoundResults.Count == gameData.Participants.Count)
+        {
+            return Result<RoundResultDto>.Error(ErrorMessages.UnableToRandomizeData, ApiErrorCodes.BadRequest);
         }
 
         int whoPerformActionPosition, whoPerformFeedbackPosition, messagePosition;
@@ -85,15 +88,25 @@ public class GameProcessorService
         var participantsCount = gameData.Participants.Count;
         var messagesCount = gameData.Messages.Count;
 
-        // add check for count of messages, rounds and participants
-        // otherwise you app may end up with infinite loop
+        var stopWatch = new Stopwatch();
+        var maxProcessTimePerLoop = new TimeSpan(0, 0, 10);
+
+        stopWatch.Start();
+
         do
         {
             whoPerformActionPosition = _randomService.GetRandomNumber(0, participantsCount);
 
             alreadyPerformedAction = currentRound.RoundResults
                 .FirstOrDefault(x => x.WhoPerformAction?.Position == whoPerformActionPosition) is not null;
+
+            if (stopWatch.Elapsed > maxProcessTimePerLoop)
+            {
+                return Result<RoundResultDto>.Error(ErrorMessages.UnableToRandomizeData, ApiErrorCodes.RequestTimeout);
+            }
         } while (alreadyPerformedAction);
+
+        stopWatch.Restart();
 
         do
         {
@@ -102,8 +115,13 @@ public class GameProcessorService
             alreadyPerformedFeedback = currentRound.RoundResults
                 .FirstOrDefault(x => x.WhoPerformFeedback?.Position == whoPerformFeedbackPosition) is not null;
 
-
+            if (stopWatch.Elapsed > maxProcessTimePerLoop)
+            {
+                return Result<RoundResultDto>.Error(ErrorMessages.UnableToRandomizeData, ApiErrorCodes.RequestTimeout);
+            }
         } while (alreadyPerformedFeedback || whoPerformFeedbackPosition == whoPerformActionPosition);
+
+        stopWatch.Restart();
 
         do
         {
@@ -114,14 +132,20 @@ public class GameProcessorService
                 .Where(x => x.Message?.Position == messagePosition
                     && x.WhoPerformFeedback?.Position == whoPerformFeedbackPosition)
                 .Any();
+
+            if (stopWatch.Elapsed > maxProcessTimePerLoop)
+            {
+                return Result<RoundResultDto>.Error(ErrorMessages.UnableToRandomizeData, ApiErrorCodes.RequestTimeout);
+            }
         } while (alreadyAskedMessage);
 
-        var whoPerformAction = gameData.Participants.SingleOrDefault(x => x.Position == whoPerformActionPosition);
-        var whoPerformFeedback = gameData.Participants.SingleOrDefault(x => x.Position == whoPerformFeedbackPosition);
-        var message = gameData.Messages.SingleOrDefault(x => x.Position == messagePosition);
+        var whoPerformAction = gameData.Participants.Single(x => x.Position == whoPerformActionPosition);
+        var whoPerformFeedback = gameData.Participants.Single(x => x.Position == whoPerformFeedbackPosition);
+        var message = gameData.Messages.Single(x => x.Position == messagePosition);
 
         currentRound.RoundResults.Add(new RoundResultEntity
         {
+            Id = Guid.NewGuid(),
             MessageId = message.Id,
             WhoPerformActionId = whoPerformAction.Id,
             WhoPerformFeedbackId = whoPerformFeedback.Id,
@@ -129,9 +153,9 @@ public class GameProcessorService
 
         await _uow.SaveChangesAsync();
 
-        // add logic for fetching Id
         return Result<RoundResultDto>.Success(new RoundResultDto
         {
+            Id = currentRound.Id,
             WhoPerformAction = new ParticipantDto
             {
                 Id = whoPerformAction.Id,
@@ -153,4 +177,3 @@ public class GameProcessorService
         });
     }
 }
-

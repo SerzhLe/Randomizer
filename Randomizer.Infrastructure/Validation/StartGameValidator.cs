@@ -6,7 +6,7 @@ public class StartGameValidator : AbstractValidator<CreateGameConfigDto>
 {
 	public StartGameValidator()
 	{
-		RuleFor(x => x.CountOfRounds).NotEmpty().GreaterThan(0);
+		RuleFor(x => x.CountOfRounds).NotEmpty().LessThanOrEqualTo(x => x.Messages.Count);
 
 		RuleForEach(x => x.Participants).ChildRules(x => x.RuleFor(x => x.NickName).NotEmpty());
 

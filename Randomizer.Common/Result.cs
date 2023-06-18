@@ -10,7 +10,7 @@ public class Result<T>
 
     protected Result(string serverErrorMessage, int apiErrorCode)
     {
-        ServerErrorMessage = serverErrorMessage;
+        ErrorMessage = serverErrorMessage;
         ApiErrorCode = apiErrorCode;
     }
 
@@ -21,7 +21,7 @@ public class Result<T>
 
     public bool IsSuccessful => !ApiErrorCode.HasValue && !ValidationErrors.Any();
 
-    public string? ServerErrorMessage { get; protected init; }
+    public string? ErrorMessage { get; protected init; }
 
     public int? ApiErrorCode { get; protected init; }
 
@@ -33,7 +33,7 @@ public class Result<T>
 
     public static Result<T> Success() => new() { PayLoad = default };
 
-    public static Result<T> ServerError(string serverErrorMessage, int apiErrorCode) => new(serverErrorMessage, apiErrorCode);
+    public static Result<T> Error(string errorMessage, int apiErrorCode) => new(errorMessage, apiErrorCode);
 
     public static Result<T> ValidationError(List<ValidationError> validationErrors) => new(validationErrors);
 }
