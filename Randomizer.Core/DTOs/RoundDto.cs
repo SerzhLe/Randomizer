@@ -1,0 +1,11 @@
+﻿namespace Randomizer.Core.DTOs;
+public record RoundDto
+{
+    public Guid Id { get; init; }
+
+    public bool IsCurrent { get; init; }
+
+    public bool IsCompleted { get; init; }
+
+    public Guid GameConfigId { get; init; }
+}

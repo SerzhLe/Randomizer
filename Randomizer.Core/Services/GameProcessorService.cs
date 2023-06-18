@@ -176,4 +176,42 @@ public class GameProcessorService
             }
         });
     }
+
+    public async Task<Result<RoundDto>> StartNewRound(Guid gameConfigId)
+    {
+        var gameData = await _uow.GameConfigRepository.GetById(gameConfigId);
+
+        if (gameData is null)
+        {
+            return Result<RoundDto>.Error(ErrorMessages.GameConfigNotFound, ApiErrorCodes.NotFound);
+        }
+
+        var currentRound = gameData.Rounds.SingleOrDefault(x => x.IsCurrent);
+
+        if (currentRound is not null)
+        {
+            currentRound.IsCurrent = false;
+            currentRound.IsCompleted = true;
+        }
+
+        var newStartedRound = new RoundEntity
+        {
+            Id = Guid.NewGuid(),
+            IsCurrent = true,
+            IsCompleted = false,
+            GameConfigEntityId = gameConfigId
+        };
+
+        await _uow.RoundRepository.AddAsync(newStartedRound);
+
+        await _uow.SaveChangesAsync();
+
+        return Result<RoundDto>.Success(new RoundDto
+        {
+            Id = newStartedRound.Id,
+            IsCompleted = newStartedRound.IsCompleted,
+            IsCurrent = newStartedRound.IsCurrent,
+            GameConfigId = newStartedRound.GameConfigEntityId
+        });
+    }
 }
