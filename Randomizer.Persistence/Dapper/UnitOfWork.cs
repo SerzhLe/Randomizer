@@ -9,9 +9,9 @@ public class UnitOfWork : IUnitOfWork, IDisposable
     private IGameConfigRepository _gameConfigRepository;
     private IRoundRepository _roundRepository;
 
-    public UnitOfWork(IDbConnection dbConnection)
+    public UnitOfWork(IDbConnector dbConnector)
     {
-        _dbConnection = dbConnection;
+        _dbConnection = dbConnector.CreateConnection();
         _dbConnection.Open();
         _transaction = _dbConnection.BeginTransaction();
     }

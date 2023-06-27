@@ -21,7 +21,7 @@ public class GameConfigRepository : IGameConfigRepository
 
         var commandGameConfig = new CommandDefinition(
             sqlGameConfig,
-            new { Id = entity.Id, CountOfRounds = entity.CountOfRounds },
+            new { entity.Id, entity.CountOfRounds },
             _transaction);
 
         await _dbConnection.ExecuteAsync(commandGameConfig);
@@ -30,13 +30,7 @@ public class GameConfigRepository : IGameConfigRepository
 
         var commandParticipants = new CommandDefinition(
             sqlParticipants,
-            entity.Participants.Select(x => new
-            {
-                Id = x.Id,
-                NickName = x.NickName,
-                Position = x.Position,
-                GameConfigId = x.StartGameConfigId
-            }),
+            entity.Participants.Select(x => new { x.Id, x.NickName, x.Position, GameConfigId = x.StartGameConfigId }),
             _transaction);
 
         await _dbConnection.ExecuteAsync(sqlParticipants, commandParticipants);
@@ -45,13 +39,7 @@ public class GameConfigRepository : IGameConfigRepository
 
         var commandMessages = new CommandDefinition(
             sqlMessages,
-            entity.Messages.Select(x => new
-            {
-                Id = x.Id,
-                Content = x.Content,
-                Position = x.Position,
-                GameConfigId = x.StartGameConfigId
-            }),
+            entity.Messages.Select(x => new { x.Id, x.Content, x.Position, GameConfigId = x.StartGameConfigId }),
             _transaction);
 
         await _dbConnection.ExecuteAsync(sqlMessages, commandMessages);
