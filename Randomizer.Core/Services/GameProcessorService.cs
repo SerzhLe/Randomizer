@@ -31,7 +31,6 @@ public class GameProcessorService
 
         var gameConfigEntity = new GameConfigEntity
         {
-            Id = Guid.NewGuid(),
             CountOfRounds = gameConfig.CountOfRounds,
             Messages = gameConfig.Messages
                 .Select((x, i) => new MessageEntity { Content = x.Content, Position = i })
@@ -41,11 +40,9 @@ public class GameProcessorService
                 .ToList()
         };
 
-        await _uow.GameConfigRepository.AddAsync(gameConfigEntity);
+        var result = await _uow.GameConfigRepository.AddAsync(gameConfigEntity);
 
         await _uow.SaveChangesAsync();
-
-        var result = await _uow.GameConfigRepository.GetById(gameConfigEntity.Id);
 
         return Result<GameConfigDto>.Success(new GameConfigDto
         {
@@ -198,7 +195,7 @@ public class GameProcessorService
             Id = Guid.NewGuid(),
             IsCurrent = true,
             IsCompleted = false,
-            GameConfigEntityId = gameConfigId
+            GameConfigId = gameConfigId
         };
 
         await _uow.RoundRepository.AddAsync(newStartedRound);
@@ -210,7 +207,7 @@ public class GameProcessorService
             Id = newStartedRound.Id,
             IsCompleted = newStartedRound.IsCompleted,
             IsCurrent = newStartedRound.IsCurrent,
-            GameConfigId = newStartedRound.GameConfigEntityId
+            GameConfigId = newStartedRound.GameConfigId
         });
     }
 }

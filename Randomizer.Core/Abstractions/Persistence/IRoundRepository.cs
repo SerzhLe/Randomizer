@@ -4,7 +4,9 @@ namespace Randomizer.Core.Abstractions.Persistence;
 
 public interface IRoundRepository
 {
-    Task<RoundEntity> GetById(Guid id);
+    Task<RoundEntity?> GetByIdAsync(Guid id);
 
-    Task AddAsync(RoundEntity entity);
+    Task<RoundEntity> AddAsync(RoundEntity entity);
+
+    Task UpdateAsync(RoundEntity entity);
 }
