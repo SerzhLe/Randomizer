@@ -53,50 +53,85 @@ public class GameConfigRepository : IGameConfigRepository
                     gcrr.game_config_round_result_id, gcrr.score, gcrr.comment, gcrr.who_perform_action_id,
                     gcrr.who_perform_feedback_id, gcrr.message_id
                     FROM game_config gc
-                    LEFT JOIN participant p ON p.game_config_id = gc.game_config_id,
-                    LEFT JOIN message m ON m.game_config_id = gc.game_config_id,
-                    LEFT JOIN game_config_round gcr ON gcr.game_config_id = gc.game_config_id,
-                    LEFT JOIN game_config_round_result gcrr ON gcrr.game_config_round_id = gcr.game_config_round_id";
+                    LEFT JOIN participant p ON p.game_config_id = gc.game_config_id
+                    LEFT JOIN message m ON m.game_config_id = gc.game_config_id
+                    LEFT JOIN game_config_round gcr ON gcr.game_config_id = gc.game_config_id
+                    LEFT JOIN game_config_round_result gcrr ON gcrr.game_config_round_id = gcr.game_config_round_id
+                    WHERE gc.game_config_id = @Id";
 
         var command = new CommandDefinition(sql, new { Id = id });
 
         var participantsLookup = new Dictionary<Guid, ParticipantEntity>();
+        var messagesLookup = new Dictionary<Guid, MessageEntity>();
+        var roundsLookup = new Dictionary<Guid, RoundEntity>();
+        var roundResultLookup = new Dictionary<Guid, RoundResultEntity>();
 
         var gameConfig = await _dbConnection.QueryAsync<GameConfigEntity, ParticipantEntity, MessageEntity, RoundEntity, RoundResultEntity, GameConfigEntity>(
             command,
-            (gameConfig, participant, message, round, result) =>
+            (gameConfig, participant, message, round, roundResult) =>
             {
-                if (!participantsLookup.TryGetValue(participant.Id, out ParticipantEntity? value))
+                if (!participantsLookup.TryGetValue(participant.Id, out var participantValue))
                 {
                     participantsLookup.Add(participant.Id, participant);
+                    gameConfig.Participants.Add(participant);
                 }
 
-                gameConfig.Participants.Add(participant);
-                gameConfig.Messages.Add(message);
-                gameConfig.Rounds.Add(round);
+                if (!messagesLookup.TryGetValue(message.Id, out var messageValue))
+                {
+                    messagesLookup.Add(message.Id, message);
+                    gameConfig.Messages.Add(message);
+                }
+
+                if (!roundsLookup.TryGetValue(round.Id, out var roundValue))
+                {
+                    roundsLookup.Add(round.Id, round);
+                    gameConfig.Rounds.Add(round);
+                }
+
+                if (!roundResultLookup.TryGetValue(roundResult.Id, out var roundResultValue))
+                {
+                    roundResultLookup.Add(roundResult.Id, roundResult);
+                    round.RoundResults.Add(roundResult);
+                }
 
                 return gameConfig;
             },
             splitOn: "p.participant_id, m.message_id, gcr.game_config_round_id, gcrr.game_config_round_result_id");
 
+        var game = gameConfig.First();
 
-        var sqlRoundResults = @"SELECT gcrr.game_config_round_result_id, gcrr.who_perform_action_id,
+        var sqlRoundResults = $@"SELECT gcrr.game_config_round_result_id, gcrr.who_perform_action_id,
                     gcrr.who_perform_feedback_id, gcrr.message_id, gcrrp1.position, gcrr2.position, gcrrm.position
                     FROM game_config_round_result gcrr
-                    LEFT JOIN participant gcrrp1 ON gcrrp1.participant_id = gcrr.who_perform_action_id,                    LEFT JOIN participant gcrrp1 ON gcrrp1.participant_id = gcrr.who_perform_action_id,
+                    LEFT JOIN participant gcrrp1 ON gcrrp1.participant_id = gcrr.who_perform_action_id,
                     LEFT JOIN participant gcrrp2 ON gcrrp2.participant_id = gcrr.who_perform_feedback_id,
                     LEFT JOIN message gcrrm ON gcrrm.message_id = gcrr.message_id
-                    WHERE gc.game_config_id = @Id";
+                    WHERE gcrr.round_id IN({string.Join(", ", game.Rounds.Select(x => $"'{x.Id}'"))})";
 
         var commandRoundResults = new CommandDefinition(sql, new { Id = id });
 
-        await _dbConnection.QueryAsync<RoundResultEntity, ParticipantEntity, ParticipantEntity, MessageEntity, RoundResultEntity>(
-            command, 
+        //var roundWhoPerformActionLookup1 = new Dictionary<Guid, ParticipantEntity>();
+        //var roundWhoPerformFeedbackLookup2 = new Dictionary<Guid, ParticipantEntity>();
+        //var roundMessagesLookup = new Dictionary<Guid, MessageEntity>();
+
+        var roundResults = await _dbConnection.QueryAsync<RoundResultEntity, ParticipantEntity, ParticipantEntity, MessageEntity, RoundResultEntity>(
+            command,
             (roundResult, whoPerformAction, whoPerformFeedback, message) =>
             {
+                roundResult.WhoPerformAction = whoPerformAction;
+                roundResult.WhoPerformFeedback = whoPerformFeedback;
+                roundResult.Message = message;
 
+                return roundResult;
             },
-            splitOn: "")
+            splitOn: "gcrrp1.position, gcrr2.position, gcrrm.position");
 
+
+        foreach (var round in game.Rounds)
+        {
+            round.RoundResults.AddRange(roundResults.Where(x => x.RoundId == round.Id));
+        }
+
+        return game;
     }
 }

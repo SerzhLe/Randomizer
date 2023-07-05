@@ -7,11 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Domain", "Random
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Core", "Randomizer.Core\Randomizer.Core.csproj", "{FEA73CB6-8053-4088-BBE4-51B83C4347A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Randomizer.Persistence", "Randomizer.Persistence\Randomizer.Persistence.csproj", "{7FB01199-AB7C-46BA-A58E-E7B13C347F18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Persistence", "Randomizer.Persistence\Randomizer.Persistence.csproj", "{7FB01199-AB7C-46BA-A58E-E7B13C347F18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Randomizer.Common", "Randomizer.Common\Randomizer.Common.csproj", "{9D8E5E65-8AFA-4641-9633-E4109D252725}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Common", "Randomizer.Common\Randomizer.Common.csproj", "{9D8E5E65-8AFA-4641-9633-E4109D252725}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Randomizer.Infrastructure", "Randomizer.Infrastructure\Randomizer.Infrastructure.csproj", "{9F2F0793-3B51-4702-A60C-575368A8D74D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Infrastructure", "Randomizer.Infrastructure\Randomizer.Infrastructure.csproj", "{9F2F0793-3B51-4702-A60C-575368A8D74D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalDebugging", "LocalDebugging\LocalDebugging.csproj", "{5021486F-807A-48C2-BF77-52F66B1055A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{9F2F0793-3B51-4702-A60C-575368A8D74D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F2F0793-3B51-4702-A60C-575368A8D74D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F2F0793-3B51-4702-A60C-575368A8D74D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5021486F-807A-48C2-BF77-52F66B1055A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5021486F-807A-48C2-BF77-52F66B1055A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5021486F-807A-48C2-BF77-52F66B1055A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5021486F-807A-48C2-BF77-52F66B1055A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
