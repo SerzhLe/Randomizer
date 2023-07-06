@@ -8,7 +8,7 @@ public class UnitOfWork : IUnitOfWork, IDisposable
     private IDbTransaction _transaction;
     private IGameConfigRepository _gameConfigRepository;
     private IRoundRepository _roundRepository;
-    private IParticipantRepository _participantRepository;
+    private IRoundResultRepository _roundResultRepository;
 
     public UnitOfWork(IDbConnector dbConnector)
     {
@@ -35,11 +35,11 @@ public class UnitOfWork : IUnitOfWork, IDisposable
         }
     }
 
-    public IParticipantRepository ParticipantRepository
+    public IRoundResultRepository RoundResultRepository
     {
         get
         {
-            return _participantRepository ??= new ParticipantRepository(_dbConnection, _transaction);
+            return _roundResultRepository ??= new RoundResultRepository(_dbConnection, _transaction);
         }
     }
 

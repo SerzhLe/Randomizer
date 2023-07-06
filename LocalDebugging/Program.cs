@@ -1,4 +1,5 @@
-﻿using Randomizer.Persistence.Dapper;
+﻿using Randomizer.Domain.Entities;
+using Randomizer.Persistence.Dapper;
 
 var connectionString = "Host=localhost:5430;Database=skill_up;Username=postgres;Password=kwxzqa2369475;";
 
@@ -8,7 +9,7 @@ using var uow = new UnitOfWork(dbConnector);
 
 //var result = await uow.GameConfigRepository.GetById(Guid.Parse("cba882c2-5fb9-41f1-9ea3-3238c6d90dc2"));
 
-var result = await uow.GameConfigRepository.GetConfig();
+//var result = await uow.GameConfigRepository.GetConfig();
 
 //var participant = await uow.ParticipantRepository.AddAsync(new Randomizer.Domain.Entities.ParticipantEntity
 //{
@@ -38,8 +39,20 @@ var result = await uow.GameConfigRepository.GetConfig();
 //    GameConfigId = game.Id
 //});
 
+var r = new RoundResultEntity
+{
+    Comment = "sdwd",
+    Score = 3,
+    MessageId = Guid.Parse("bb00b4a8-d8f0-4d9e-bd2e-0e1dceec98ad"),
+    WhoPerformActionId = Guid.Parse("7a2216c9-b7c8-4ad5-b7fe-68c7cc33b891"),
+    WhoPerformFeedbackId = Guid.Parse("7a2216c9-b7c8-4ad5-b7fe-68c7cc33b891"),
+    RoundId = Guid.Parse("38ff2fc7-20b7-42f3-a559-be63d9ec2379")
+};
+
+await uow.RoundResultRepository.AddAsync(r);
+
 
 var game = await uow.GameConfigRepository.GetFullAsync(Guid.Parse("cba882c2-5fb9-41f1-9ea3-3238c6d90dc2"));
 
-//await uow.SaveChangesAsync();
-Console.WriteLine();
+await uow.SaveChangesAsync();
+Console.ReadKey();

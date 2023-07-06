@@ -10,6 +10,4 @@ public interface IGameConfigRepository
     Task<GameConfigEntity?> GetFullAsync(Guid id);
 
     Task<GameConfigEntity> AddAsync(GameConfigEntity entity);
-
-    Task<List<GameConfigEntity>> GetConfig();
 }

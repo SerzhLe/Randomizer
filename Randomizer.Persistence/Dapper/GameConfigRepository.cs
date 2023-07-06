@@ -30,30 +30,36 @@ public class GameConfigRepository : IGameConfigRepository
 
         await _dbConnection.ExecuteAsync(commandGameConfig);
 
-        var sqlParticipants = "INSERT INTO participant(participant_id, nick_name, position, game_config_id) VALUES(@Id, @NickName, @Position, @GameConfigId)";
+        if (entity.Participants.Any())
+        {
+            var sqlParticipants = "INSERT INTO participant(participant_id, nick_name, position, game_config_id) VALUES(@Id, @NickName, @Position, @GameConfigId)";
 
-        var commandParticipants = new CommandDefinition(
-            sqlParticipants,
-            entity.Participants.Select(x => new { x.Id, x.NickName, x.Position, GameConfigId = x.StartGameConfigId }),
-            _transaction);
+            var commandParticipants = new CommandDefinition(
+                sqlParticipants,
+                entity.Participants.Select(x => new { x.Id, x.NickName, x.Position, GameConfigId = x.StartGameConfigId }),
+                _transaction);
 
-        await _dbConnection.ExecuteAsync(sqlParticipants, commandParticipants);
+            await _dbConnection.ExecuteAsync(sqlParticipants, commandParticipants);
+        }
 
-        var sqlMessages = "INSERT INTO message(message_id, content, position, game_config_id) VALUES(@Id, @Content, @Position, @GameConfigId)";
+        if (entity.Messages.Any())
+        {
+            var sqlMessages = "INSERT INTO message(message_id, content, position, game_config_id) VALUES(@Id, @Content, @Position, @GameConfigId)";
 
-        var commandMessages = new CommandDefinition(
-            sqlMessages,
-            entity.Messages.Select(x => new { x.Id, x.Content, x.Position, GameConfigId = x.StartGameConfigId }),
-            _transaction);
+            var commandMessages = new CommandDefinition(
+                sqlMessages,
+                entity.Messages.Select(x => new { x.Id, x.Content, x.Position, GameConfigId = x.StartGameConfigId }),
+                _transaction);
 
-        await _dbConnection.ExecuteAsync(sqlMessages, commandMessages);
+            await _dbConnection.ExecuteAsync(sqlMessages, commandMessages);
+        }
 
         return entity;
     }
 
     public async Task<GameConfigEntity?> FindAsync(Guid id)
     {
-        var sql = "SELECT game_config_id Id, display_id DisplayId, count_of_rounds CountOfRounds  FROM game_config WHERE game_config_id = @ID";
+        var sql = "SELECT game_config_id Id, display_id DisplayId, count_of_rounds CountOfRounds FROM game_config WHERE game_config_id = @ID";
 
         var command = new CommandDefinition(sql, new { id });
 
@@ -146,10 +152,5 @@ public class GameConfigRepository : IGameConfigRepository
         }
 
         return game;
-    }
-
-    public async Task<List<GameConfigEntity>> GetConfig()
-    {
-        return (await _dbConnection.QueryAsync<GameConfigEntity>("SELECT game_config_id Id, display_id DisplayId, count_of_rounds CountOfRounds  FROM game_config")).ToList();
     }
 }
