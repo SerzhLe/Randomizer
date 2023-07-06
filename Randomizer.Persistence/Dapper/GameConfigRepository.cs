@@ -18,40 +18,42 @@ public class GameConfigRepository : IGameConfigRepository
     public async Task<GameConfigEntity> AddAsync(GameConfigEntity entity)
     {
         entity.Id = Guid.NewGuid();
-        entity.Messages.ForEach(x => x.Id = Guid.NewGuid());
-        entity.Participants.ForEach(x => x.Id = Guid.NewGuid());
+        entity.Messages
+            .Select((x, i) =>
+            {
+                x.Id = Guid.NewGuid();
+                x.Position = i;
+                x.StartGameConfigId = entity.Id;
+                return x;
+            })
+            .ToList();
 
-        var sqlGameConfig = "INSERT INTO game_config(game_config_id, count_of_rounds) VALUES(@Id, @CountOfRounds)";
+        entity.Participants
+            .Select((x, i) =>
+            {
+                x.Id = Guid.NewGuid();
+                x.Position = i;
+                x.StartGameConfigId = entity.Id;
+                return x;
+            })
+            .ToList();
 
-        var commandGameConfig = new CommandDefinition(
-            sqlGameConfig,
-            new { entity.Id, entity.CountOfRounds },
-            _transaction);
+        var sqlGameConfig = "INSERT INTO game_config (game_config_id, count_of_rounds) VALUES (@Id, @CountOfRounds)";
 
-        await _dbConnection.ExecuteAsync(commandGameConfig);
+        await _dbConnection.ExecuteAsync(sqlGameConfig, entity, _transaction);
 
         if (entity.Participants.Any())
         {
-            var sqlParticipants = "INSERT INTO participant(participant_id, nick_name, position, game_config_id) VALUES(@Id, @NickName, @Position, @GameConfigId)";
+            var sqlParticipants = "INSERT INTO participant (participant_id, nick_name, position, game_config_id) VALUES (@Id, @NickName, @Position, @StartGameConfigId)";
 
-            var commandParticipants = new CommandDefinition(
-                sqlParticipants,
-                entity.Participants.Select(x => new { x.Id, x.NickName, x.Position, GameConfigId = x.StartGameConfigId }),
-                _transaction);
-
-            await _dbConnection.ExecuteAsync(sqlParticipants, commandParticipants);
+            await _dbConnection.ExecuteAsync(sqlParticipants, entity.Participants, _transaction);
         }
 
         if (entity.Messages.Any())
         {
-            var sqlMessages = "INSERT INTO message(message_id, content, position, game_config_id) VALUES(@Id, @Content, @Position, @GameConfigId)";
+            var sqlMessages = "INSERT INTO message (message_id, content, position, game_config_id) VALUES (@Id, @Content, @Position, @StartGameConfigId)";
 
-            var commandMessages = new CommandDefinition(
-                sqlMessages,
-                entity.Messages.Select(x => new { x.Id, x.Content, x.Position, GameConfigId = x.StartGameConfigId }),
-                _transaction);
-
-            await _dbConnection.ExecuteAsync(sqlMessages, commandMessages);
+            await _dbConnection.ExecuteAsync(sqlMessages, entity.Messages, _transaction);
         }
 
         return entity;

@@ -33,7 +33,7 @@ public class GameProcessorService
         {
             CountOfRounds = gameConfig.CountOfRounds,
             Messages = gameConfig.Messages
-                .Select((x, i) => new MessageEntity { Content = x.Content, Position = i })
+                .Select(x => new MessageEntity { Content = x.Content })
                 .ToList(),
             Participants = gameConfig.Participants
                 .Select((x, i) => new ParticipantEntity { NickName = x.NickName, Position = i })
