@@ -60,7 +60,7 @@ public class GameProcessorService
 
     public async Task<Result<RoundResultDto>> GetRandomData(Guid gameConfigId)
     {
-        var gameData = await _uow.GameConfigRepository.GetById(gameConfigId);
+        var gameData = await _uow.GameConfigRepository.FindAsync(gameConfigId);
 
         if (gameData is null)
         {
@@ -175,7 +175,7 @@ public class GameProcessorService
 
     public async Task<Result<RoundDto>> StartNewRound(Guid gameConfigId)
     {
-        var gameData = await _uow.GameConfigRepository.GetById(gameConfigId);
+        var gameData = await _uow.GameConfigRepository.FindAsync(gameConfigId);
 
         if (gameData is null)
         {

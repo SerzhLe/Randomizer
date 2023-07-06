@@ -5,7 +5,9 @@ namespace Randomizer.Core.Abstractions.Persistence;
 
 public interface IGameConfigRepository
 {
-    Task<GameConfigEntity?> GetById(Guid id);
+    Task<GameConfigEntity?> FindAsync(Guid id);
+
+    Task<GameConfigEntity?> GetFullAsync(Guid id);
 
     Task<GameConfigEntity> AddAsync(GameConfigEntity entity);
 

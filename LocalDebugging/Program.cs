@@ -4,7 +4,7 @@ var connectionString = "Host=localhost:5430;Database=skill_up;Username=postgres;
 
 var dbConnector = new DbConnector(connectionString);
 
-var uow = new UnitOfWork(dbConnector);
+using var uow = new UnitOfWork(dbConnector);
 
 //var result = await uow.GameConfigRepository.GetById(Guid.Parse("cba882c2-5fb9-41f1-9ea3-3238c6d90dc2"));
 
@@ -38,6 +38,8 @@ var result = await uow.GameConfigRepository.GetConfig();
 //    GameConfigId = game.Id
 //});
 
-//await uow.SaveChangesAsync();
 
+var game = await uow.GameConfigRepository.GetFullAsync(Guid.Parse("cba882c2-5fb9-41f1-9ea3-3238c6d90dc2"));
+
+//await uow.SaveChangesAsync();
 Console.WriteLine();
