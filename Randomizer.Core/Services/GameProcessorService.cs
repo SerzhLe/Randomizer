@@ -144,6 +144,7 @@ public class GameProcessorService : IGameProcessorService
             MessageId = message.Id,
             WhoPerformActionId = whoPerformAction.Id,
             WhoPerformFeedbackId = whoPerformFeedback.Id,
+            RoundId = currentRound.Id,
         };
 
         roundResult = await _uow.RoundResultRepository.AddAsync(roundResult);
@@ -175,7 +176,7 @@ public class GameProcessorService : IGameProcessorService
         });
     }
 
-    public async Task<Result<RoundDto>> StartNewRound(Guid gameConfigId, Guid currentRoundId)
+    public async Task<Result<RoundDto>> StartNewRound(Guid gameConfigId)
     {
         var gameData = await _uow.GameConfigRepository.FindAsync(gameConfigId);
 
@@ -184,17 +185,16 @@ public class GameProcessorService : IGameProcessorService
             return Result<RoundDto>.Error(ErrorMessages.GameConfigNotFound, ApiErrorCodes.NotFound);
         }
 
-        var currentRound = await _uow.RoundRepository.GetByIdAsync(currentRoundId);
+        var rounds = await _uow.RoundRepository.GetAllByGameConfigId(gameConfigId);
+        var currentRound = rounds.SingleOrDefault(x => x.IsCurrent);
 
-        if (currentRound is  null)
+        if (currentRound is not null)
         {
-            return Result<RoundDto>.Error(ErrorMessages.RoundNotFound, ApiErrorCodes.NotFound);
+            currentRound.IsCurrent = false;
+            currentRound.IsCompleted = true;
+
+            await _uow.RoundRepository.UpdateAsync(currentRound);
         }
-
-        currentRound.IsCurrent = false;
-        currentRound.IsCompleted = true;
-
-        await _uow.RoundRepository.UpdateAsync(currentRound);
 
         var newStartedRound = await _uow.RoundRepository.AddAsync(new RoundEntity
         {
@@ -217,7 +217,7 @@ public class GameProcessorService : IGameProcessorService
 
     public async Task<Result> UpdateRoundResultWithFeedback(UpdateRoundResultDto roundResultDto)
     {
-        var roundResult = _uow.RoundResultRepository.FindAsync(roundResultDto.Id);
+        var roundResult = await _uow.RoundResultRepository.FindAsync(roundResultDto.Id);
 
         if (roundResult is null)
         {

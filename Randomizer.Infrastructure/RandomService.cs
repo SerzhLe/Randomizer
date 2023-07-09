@@ -3,15 +3,10 @@
 namespace Randomizer.Infrastructure;
 internal class RandomService : IRandomService
 {
-    private readonly Random _random;
-
-    internal RandomService()
-    {
-        _random = new Random();
-    }
-
     public int GetRandomNumber(int minValue, int maxValue)
     {
-        return _random.Next(minValue, maxValue);
+        var random = new Random();
+
+        return random.Next(minValue, maxValue);
     }
 }

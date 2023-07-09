@@ -38,15 +38,25 @@ public class RoundRepository : IRoundRepository
 
     public async Task<RoundEntity?> GetByIdAsync(Guid id)
     {
-        var sql = "SELECT game_config_round_id Id, is_completed IsCompleted, is_current IsCurrent, game_config_id GameConfigId FROM game_config_round WHERE game_config_round_id = @Id";
+        var sql = @"SELECT game_config_round_id Id, is_completed IsCompleted, is_current IsCurrent, sequence_number SequenceNumber
+                    game_config_id GameConfigId FROM game_config_round WHERE game_config_round_id = @Id";
 
         return (await _dbConnection.QueryAsync<RoundEntity>(sql, new { id }, _transaction)).SingleOrDefault();
     }
 
     public async Task UpdateAsync(RoundEntity entity)
     {
-        var sql = "UPDATE game_config_round SET is_completed = @IsCompleted, is_current = @IsCurrent WHERE game_config_round_id = @Id";
+        var sql = @"UPDATE game_config_round SET is_completed = @IsCompleted, is_current = @IsCurrent 
+                    WHERE game_config_round_id = @Id";
 
         await _dbConnection.ExecuteAsync(sql, entity, _transaction);
+    }
+
+    public async Task<List<RoundEntity>> GetAllByGameConfigId(Guid gameConfigId)
+    {
+        var sql = @"SELECT game_config_round_id Id, is_completed IsCompleted, is_current IsCurrent, sequence_number SequenceNumber, 
+                    game_config_id GameConfigId FROM game_config_round WHERE game_config_id = @Id";
+
+        return (await _dbConnection.QueryAsync<RoundEntity>(sql, new { Id = gameConfigId }, _transaction)).ToList();
     }
 }

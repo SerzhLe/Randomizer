@@ -1,8 +1,12 @@
 using Randomizer.Core.Services;
+using Randomizer.Infrastructure;
+using Randomizer.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddPersistenceServices();
+builder.Services.AddInfrastructureServices();
 builder.Services.AddScoped<IGameProcessorService, GameProcessorService>();
 
 builder.Services.AddControllers();

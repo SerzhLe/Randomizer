@@ -33,7 +33,7 @@ public class RoundResultRepository : IRoundResultRepository
     {
         var sql = @"UPDATE game_config_round_result 
                     SET score = @Score, comment = @Comment
-                    WHERE game_config_round_result = @Id";
+                    WHERE game_config_round_result_id = @Id";
 
         await _dbConnection.ExecuteAsync(sql, entity, _transaction);
     }
@@ -45,7 +45,7 @@ public class RoundResultRepository : IRoundResultRepository
                     message_id MessageId, game_config_round_id RoundId
                     FROM game_config_round_result WHERE game_config_round_result_id = @Id";
 
-        var result = (await _dbConnection.QueryAsync<RoundResultEntity>(sql, id, _transaction)).SingleOrDefault();
+        var result = (await _dbConnection.QueryAsync<RoundResultEntity>(sql, new { Id = id })).SingleOrDefault();
 
         return result;
     }

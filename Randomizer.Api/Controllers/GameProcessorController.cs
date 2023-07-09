@@ -14,9 +14,33 @@ public class GameProcessorController : BaseController
     }
 
     [HttpPost("startGame")]
-    public async Task<ActionResult> StartGame(CreateGameConfigDto createGameConfigDto)
+    public async Task<ActionResult<GameConfigDto>> StartGame(CreateGameConfigDto createGameConfigDto)
     {
         var result = await _gameProcessorService.StartGame(createGameConfigDto);
+
+        return result.ToActionResult();
+    }
+
+    [HttpPost("game/{gameConfigId:guid}/startNewRound")]
+    public async Task<ActionResult<RoundDto>> StartNewRound(Guid gameConfigId)
+    {
+        var result = await _gameProcessorService.StartNewRound(gameConfigId);
+
+        return result.ToActionResult();
+    }
+
+    [HttpGet("game/{gameConfigId:guid}/randomData")]
+    public async Task<ActionResult<RoundResultDto>> GetRandomData(Guid gameConfigId)
+    {
+        var result = await _gameProcessorService.GetRandomData(gameConfigId);
+
+        return result.ToActionResult();
+    }
+
+    [HttpPut("game/updateRoundResult")]
+    public async Task<ActionResult<RoundResultDto>> UpdateRoundResultWithFeedback(UpdateRoundResultDto updateRoundResultDto)
+    {
+        var result = await _gameProcessorService.UpdateRoundResultWithFeedback(updateRoundResultDto);
 
         return result.ToActionResult();
     }

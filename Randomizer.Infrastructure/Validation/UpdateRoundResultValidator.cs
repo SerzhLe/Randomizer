@@ -6,7 +6,7 @@ internal class UpdateRoundResultValidator : AbstractValidator<UpdateRoundResultD
 {
     internal UpdateRoundResultValidator()
     {
-        RuleFor(x => x.Score).NotEmpty().GreaterThan(0);
+        RuleFor(x => x.Score).InclusiveBetween(1, 5);
 
         RuleFor(x => x.Comment).MaximumLength(200);
     }

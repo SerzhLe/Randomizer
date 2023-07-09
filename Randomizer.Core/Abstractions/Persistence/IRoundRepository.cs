@@ -9,4 +9,6 @@ public interface IRoundRepository
     Task<RoundEntity> AddAsync(RoundEntity entity);
 
     Task UpdateAsync(RoundEntity entity);
+
+    Task<List<RoundEntity>> GetAllByGameConfigId(Guid gameConfigId);
 }
