@@ -71,7 +71,7 @@ public class GameProcessorService
 
         if (currentRound is null)
         {
-            return Result<RoundResultDto>.Error(ErrorMessages.CurrentRoundNotFound, ApiErrorCodes.NotFound);
+            return Result<RoundResultDto>.Error(ErrorMessages.RoundNotFound, ApiErrorCodes.NotFound);
         }
 
         if (currentRound.RoundResults.Count == gameData.Participants.Count)
@@ -188,7 +188,7 @@ public class GameProcessorService
 
         if (currentRound is  null)
         {
-            return Result<RoundDto>.Error(ErrorMessages.CurrentRoundNotFound, ApiErrorCodes.NotFound);
+            return Result<RoundDto>.Error(ErrorMessages.RoundNotFound, ApiErrorCodes.NotFound);
         }
 
         currentRound.IsCurrent = false;
@@ -213,5 +213,33 @@ public class GameProcessorService
             SequenceNumber = newStartedRound.SequenceNumber,
             GameConfigId = newStartedRound.GameConfigId
         });
+    }
+
+    public async Task<Result> UpdateRoundResultWithFeedback(UpdateRoundResultDto roundResultDto)
+    {
+        var roundResult = _uow.RoundResultRepository.FindAsync(roundResultDto.Id);
+
+        if (roundResult is null)
+        {
+            return Result.Error(ErrorMessages.RoundResultNotFound, ApiErrorCodes.NotFound);
+        }
+
+        var validationResult = _validator.ValidateUpdateRoundResult(roundResultDto);
+
+        if (!validationResult.IsValid)
+        {
+            return Result.ValidationError(validationResult.ValidationErrors);
+        }
+
+        await _uow.RoundResultRepository.UpdateAsync(new RoundResultEntity
+        {
+            Id = roundResultDto.Id,
+            Score = roundResultDto.Score,
+            Comment = roundResultDto.Comment,
+        });
+
+        await _uow.SaveChangesAsync();
+
+        return Result.Success();
     }
 }

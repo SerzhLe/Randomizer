@@ -28,4 +28,25 @@ public class RoundResultRepository : IRoundResultRepository
 
         return entity;
     }
+
+    public async Task UpdateAsync(RoundResultEntity entity)
+    {
+        var sql = @"UPDATE game_config_round_result 
+                    SET score = @Score, comment = @Comment
+                    WHERE game_config_round_result = @Id";
+
+        await _dbConnection.ExecuteAsync(sql, entity, _transaction);
+    }
+
+    public async Task<RoundResultEntity?> FindAsync(Guid id)
+    {
+        var sql = @"SELECT game_config_round_result_id Id, score Score, comment Comment,
+                    who_perform_action_id WhoPerformActionId, who_perform_feedback_id WhoPerformFeedbackId, 
+                    message_id MessageId, game_config_round_id RoundId
+                    FROM game_config_round_result WHERE game_config_round_result_id = @Id";
+
+        var result = (await _dbConnection.QueryAsync<RoundResultEntity>(sql, id, _transaction)).SingleOrDefault();
+
+        return result;
+    }
 }

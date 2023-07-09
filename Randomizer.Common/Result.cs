@@ -1,23 +1,8 @@
 ﻿namespace Randomizer.Common;
-public class Result<T>
+
+public class Result
 {
     protected Result() { }
-
-    protected Result(T payload)
-    {
-        PayLoad = payload;
-    }
-
-    protected Result(string serverErrorMessage, int apiErrorCode)
-    {
-        ErrorMessage = serverErrorMessage;
-        ApiErrorCode = apiErrorCode;
-    }
-
-    protected Result(List<ValidationError> validationErrors)
-    {
-        ValidationErrors = validationErrors;
-    }
 
     public bool IsSuccessful => !ApiErrorCode.HasValue && !ValidationErrors.Any();
 
@@ -27,15 +12,28 @@ public class Result<T>
 
     public List<ValidationError> ValidationErrors { get; protected init; } = new();
 
+    public static Result Success() => new Result();
+
+    public static Result Error(string errorMessage, int apiErrorCode) 
+        => new Result { ErrorMessage = errorMessage, ApiErrorCode = apiErrorCode };
+
+    public static Result ValidationError(List<ValidationError> validationErrors) 
+        => new Result { ValidationErrors = validationErrors };
+}
+
+public class Result<T> : Result
+{
     public T? PayLoad { get; protected init; }
 
-    public static Result<T> Success<T>(T payload) => new(payload);
+    public static Result<T> Success<T>(T payload) => new Result<T> { PayLoad = payload };
 
-    public static Result<T> Success() => new() { PayLoad = default };
+    public new static Result<T> Success() => new Result<T>();
 
-    public static Result<T> Error(string errorMessage, int apiErrorCode) => new(errorMessage, apiErrorCode);
+    public new static Result<T> Error(string errorMessage, int apiErrorCode) 
+        => new Result<T> { ErrorMessage = errorMessage, ApiErrorCode = apiErrorCode };
 
-    public static Result<T> ValidationError(List<ValidationError> validationErrors) => new(validationErrors);
+    public new static Result<T> ValidationError(List<ValidationError> validationErrors) 
+        => new Result<T> { ValidationErrors = validationErrors };
 }
 
 public record ValidationResult

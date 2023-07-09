@@ -22,4 +22,22 @@ public class FluentCoreValidator : ICoreValidator
             }).ToList()
         };
     }
+
+    public ValidationResult ValidateUpdateRoundResult(UpdateRoundResultDto roundResult)
+    {
+        var validator = new UpdateRoundResultValidator();
+
+        var result = validator.Validate(roundResult);
+
+        return new ValidationResult
+        {
+            IsValid = result.IsValid,
+            ValidationErrors = result.Errors.Select(x => new ValidationError
+            {
+                ErrorMessage = x.ErrorMessage,
+                PropertyName = x.PropertyName,
+                CustomState = x.CustomState
+            }).ToList()
+        };
+    }
 }
