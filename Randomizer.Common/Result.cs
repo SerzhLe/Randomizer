@@ -27,8 +27,6 @@ public class Result<T> : Result
 
     public static Result<T> Success<T>(T payload) => new Result<T> { PayLoad = payload };
 
-    public new static Result<T> Success() => new Result<T>();
-
     public new static Result<T> Error(string errorMessage, int apiErrorCode) 
         => new Result<T> { ErrorMessage = errorMessage, ApiErrorCode = apiErrorCode };
 

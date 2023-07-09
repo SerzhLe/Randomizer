@@ -2,8 +2,9 @@
 using Randomizer.Core.Abstractions.Infrastructure;
 using Randomizer.Core.DTOs;
 
+// change logic for that fluent validation
 namespace Randomizer.Infrastructure.Validation;
-public class FluentCoreValidator : ICoreValidator
+internal class FluentCoreValidator : ICoreValidator
 {
     public ValidationResult ValidateStartGame(CreateGameConfigDto gameConfig)
     {

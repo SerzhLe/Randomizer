@@ -1,11 +1,11 @@
 ﻿using Randomizer.Core.Abstractions.Infrastructure;
 
 namespace Randomizer.Infrastructure;
-public class RandomService : IRandomService
+internal class RandomService : IRandomService
 {
     private readonly Random _random;
 
-    public RandomService()
+    internal RandomService()
     {
         _random = new Random();
     }

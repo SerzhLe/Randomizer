@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Domain", "Randomizer.Domain\Randomizer.Domain.csproj", "{5500A412-A7C3-4E03-970E-2B7B1C1E3C24}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Core", "Randomizer.Core\Randomizer.Core.csproj", "{FEA73CB6-8053-4088-BBE4-51B83C4347A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Application", "Randomizer.Core\Randomizer.Application.csproj", "{FEA73CB6-8053-4088-BBE4-51B83C4347A2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Persistence", "Randomizer.Persistence\Randomizer.Persistence.csproj", "{7FB01199-AB7C-46BA-A58E-E7B13C347F18}"
 EndProject
@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Common", "Random
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Infrastructure", "Randomizer.Infrastructure\Randomizer.Infrastructure.csproj", "{9F2F0793-3B51-4702-A60C-575368A8D74D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalDebugging", "LocalDebugging\LocalDebugging.csproj", "{5021486F-807A-48C2-BF77-52F66B1055A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocalDebugging", "LocalDebugging\LocalDebugging.csproj", "{5021486F-807A-48C2-BF77-52F66B1055A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Randomizer.Api", "Randomizer.Api\Randomizer.Api.csproj", "{55E75144-1741-409F-ABFD-DC27DBC3580E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{5021486F-807A-48C2-BF77-52F66B1055A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5021486F-807A-48C2-BF77-52F66B1055A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5021486F-807A-48C2-BF77-52F66B1055A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55E75144-1741-409F-ABFD-DC27DBC3580E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55E75144-1741-409F-ABFD-DC27DBC3580E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55E75144-1741-409F-ABFD-DC27DBC3580E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55E75144-1741-409F-ABFD-DC27DBC3580E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

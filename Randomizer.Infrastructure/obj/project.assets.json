@@ -31,6 +31,20 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "Randomizer.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Randomizer.Common": "1.0.0",
+          "Randomizer.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Randomizer.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Randomizer.Application.dll": {}
+        }
+      },
       "Randomizer.Common/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -39,20 +53,6 @@
         },
         "runtime": {
           "bin/placeholder/Randomizer.Common.dll": {}
-        }
-      },
-      "Randomizer.Core/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "dependencies": {
-          "Randomizer.Common": "1.0.0",
-          "Randomizer.Domain": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Randomizer.Core.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Randomizer.Core.dll": {}
         }
       },
       "Randomizer.Domain/1.0.0": {
@@ -120,15 +120,15 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "Randomizer.Application/1.0.0": {
+      "type": "project",
+      "path": "../Randomizer.Core/Randomizer.Application.csproj",
+      "msbuildProject": "../Randomizer.Core/Randomizer.Application.csproj"
+    },
     "Randomizer.Common/1.0.0": {
       "type": "project",
       "path": "../Randomizer.Common/Randomizer.Common.csproj",
       "msbuildProject": "../Randomizer.Common/Randomizer.Common.csproj"
-    },
-    "Randomizer.Core/1.0.0": {
-      "type": "project",
-      "path": "../Randomizer.Core/Randomizer.Core.csproj",
-      "msbuildProject": "../Randomizer.Core/Randomizer.Core.csproj"
     },
     "Randomizer.Domain/1.0.0": {
       "type": "project",
@@ -140,7 +140,7 @@
     "net6.0": [
       "FluentValidation >= 11.5.2",
       "Microsoft.Extensions.DependencyInjection.Abstractions >= 7.0.0",
-      "Randomizer.Core >= 1.0.0"
+      "Randomizer.Application >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -170,8 +170,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\FunnyProjects\\RandomizerApi\\Randomizer.Core\\Randomizer.Core.csproj": {
-              "projectPath": "C:\\FunnyProjects\\RandomizerApi\\Randomizer.Core\\Randomizer.Core.csproj"
+            "C:\\FunnyProjects\\RandomizerApi\\Randomizer.Core\\Randomizer.Application.csproj": {
+              "projectPath": "C:\\FunnyProjects\\RandomizerApi\\Randomizer.Core\\Randomizer.Application.csproj"
             }
           }
         }

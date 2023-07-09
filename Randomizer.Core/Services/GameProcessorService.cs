@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace Randomizer.Core.Services;
 
-public class GameProcessorService
+public class GameProcessorService : IGameProcessorService
 {
     private readonly IUnitOfWork _uow;
     private readonly IRandomService _randomService;

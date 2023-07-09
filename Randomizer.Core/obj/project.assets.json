@@ -48,9 +48,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\FunnyProjects\\RandomizerApi\\Randomizer.Core\\Randomizer.Core.csproj",
-      "projectName": "Randomizer.Core",
-      "projectPath": "C:\\FunnyProjects\\RandomizerApi\\Randomizer.Core\\Randomizer.Core.csproj",
+      "projectUniqueName": "C:\\FunnyProjects\\RandomizerApi\\Randomizer.Core\\Randomizer.Application.csproj",
+      "projectName": "Randomizer.Application",
+      "projectPath": "C:\\FunnyProjects\\RandomizerApi\\Randomizer.Core\\Randomizer.Application.csproj",
       "packagesPath": "C:\\Users\\leshchenko.s\\.nuget\\packages\\",
       "outputPath": "C:\\FunnyProjects\\RandomizerApi\\Randomizer.Core\\obj\\",
       "projectStyle": "PackageReference",

@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Npgsql;
 using Randomizer.Core.Abstractions.Persistence;
+using Randomizer.Persistence.Dapper;
 
-namespace Randomizer.Persistence.Dapper; 
-public static class DependencyInjection 
-{ 
+namespace Randomizer.Persistence;
+public static class DependencyInjection
+{
     public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddSingleton<IDbConnector, DbConnector>();

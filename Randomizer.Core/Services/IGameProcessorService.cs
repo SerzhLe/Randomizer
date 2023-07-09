@@ -8,5 +8,7 @@ public interface IGameProcessorService
 
     Task<Result<RoundResultDto>> GetRandomData(Guid gameConfigId);
 
-    Task<Result<RoundDto>> StartNewRound(Guid gameConfigId);
+    Task<Result<RoundDto>> StartNewRound(Guid gameConfigId, Guid currentRoundId);
+
+    Task<Result> UpdateRoundResultWithFeedback(UpdateRoundResultDto roundResultDto);
 }
