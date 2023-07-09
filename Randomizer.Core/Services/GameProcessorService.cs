@@ -60,7 +60,7 @@ public class GameProcessorService
 
     public async Task<Result<RoundResultDto>> GetRandomData(Guid gameConfigId)
     {
-        var gameData = await _uow.GameConfigRepository.FindAsync(gameConfigId);
+        var gameData = await _uow.GameConfigRepository.GetFullAsync(gameConfigId);
 
         if (gameData is null)
         {
@@ -139,19 +139,21 @@ public class GameProcessorService
         var whoPerformFeedback = gameData.Participants.Single(x => x.Position == whoPerformFeedbackPosition);
         var message = gameData.Messages.Single(x => x.Position == messagePosition);
 
-        currentRound.RoundResults.Add(new RoundResultEntity
+        var roundResult = new RoundResultEntity
         {
-            Id = Guid.NewGuid(),
             MessageId = message.Id,
             WhoPerformActionId = whoPerformAction.Id,
             WhoPerformFeedbackId = whoPerformFeedback.Id,
-        });
+        };
+
+        roundResult = await _uow.RoundResultRepository.AddAsync(roundResult);
 
         await _uow.SaveChangesAsync();
 
         return Result<RoundResultDto>.Success(new RoundResultDto
         {
-            Id = currentRound.Id,
+            Id = roundResult.Id,
+            LastRoundResult = (currentRound.RoundResults.Count + 1) == gameData.Participants.Count,
             WhoPerformAction = new ParticipantDto
             {
                 Id = whoPerformAction.Id,

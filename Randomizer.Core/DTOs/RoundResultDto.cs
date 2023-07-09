@@ -10,6 +10,8 @@ public record RoundResultDto
 
     public string? Comment { get; init; }
 
+    public bool LastRoundResult { get; init; }
+
     public ParticipantDto? WhoPerformAction { get; init; }
 
     public ParticipantDto? WhoPerformFeedback { get; init; }

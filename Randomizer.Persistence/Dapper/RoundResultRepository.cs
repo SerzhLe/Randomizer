@@ -24,9 +24,7 @@ public class RoundResultRepository : IRoundResultRepository
                     VALUES(@Id, @Score, @Comment, @WhoPerformActionId, @WhoPerformFeedbackId, 
                     @MessageId, @RoundId)";
 
-        var command = new CommandDefinition(sql, entity, _transaction);
-
-        await _dbConnection.ExecuteAsync(command);
+        await _dbConnection.ExecuteAsync(sql, entity, _transaction);
 
         return entity;
     }

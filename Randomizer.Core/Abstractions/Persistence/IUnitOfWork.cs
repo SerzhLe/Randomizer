@@ -6,6 +6,8 @@ public interface IUnitOfWork
 
     IRoundRepository RoundRepository { get; }
 
+    IRoundResultRepository RoundResultRepository { get; }
+
     Task SaveChangesAsync();
 }
 
