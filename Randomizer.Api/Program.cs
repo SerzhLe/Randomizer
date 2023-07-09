@@ -1,3 +1,4 @@
+using Randomizer.Api.Extensions;
 using Randomizer.Core.Services;
 using Randomizer.Infrastructure;
 using Randomizer.Persistence;
@@ -22,6 +23,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.ConfigureExceptionHandler(app.Logger);
 
 app.UseHttpsRedirection();
 
