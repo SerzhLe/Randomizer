@@ -2,9 +2,9 @@
 using Randomizer.Core.DTOs;
 
 namespace Randomizer.Infrastructure.Validation;
-internal class StartGameValidator : AbstractValidator<CreateGameConfigDto>
+internal class CreateGameConfigValidator : AbstractValidator<CreateGameConfigDto>
 {
-	internal StartGameValidator()
+	public CreateGameConfigValidator()
 	{
 		RuleFor(x => x.CountOfRounds).NotEmpty().LessThanOrEqualTo(x => x.Messages.Count);
 

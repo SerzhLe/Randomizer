@@ -4,7 +4,7 @@ using Randomizer.Core.DTOs;
 namespace Randomizer.Infrastructure.Validation;
 internal class UpdateRoundResultValidator : AbstractValidator<UpdateRoundResultDto>
 {
-    internal UpdateRoundResultValidator()
+    public UpdateRoundResultValidator()
     {
         RuleFor(x => x.Score).InclusiveBetween(1, 5);
 

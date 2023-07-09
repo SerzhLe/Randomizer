@@ -1,34 +1,24 @@
-﻿using Randomizer.Common;
+﻿using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
+using Randomizer.Common;
 using Randomizer.Core.Abstractions.Infrastructure;
 using Randomizer.Core.DTOs;
 
-// change logic for that fluent validation
 namespace Randomizer.Infrastructure.Validation;
 internal class FluentCoreValidator : ICoreValidator
 {
-    public ValidationResult ValidateStartGame(CreateGameConfigDto gameConfig)
+    private readonly IServiceProvider _serviceProvider;
+
+    public FluentCoreValidator(IServiceProvider serviceProvider)
     {
-        var validator = new StartGameValidator();
-
-        var result = validator.Validate(gameConfig);
-
-        return new ValidationResult
-        {
-            IsValid = result.IsValid,
-            ValidationErrors = result.Errors.Select(x => new ValidationError
-            {
-                ErrorMessage = x.ErrorMessage,
-                PropertyName = x.PropertyName,
-                CustomState = x.CustomState
-            }).ToList()
-        };
+        _serviceProvider = serviceProvider;
     }
 
-    public ValidationResult ValidateUpdateRoundResult(UpdateRoundResultDto roundResult)
+    public ValidationResult Validate<T>(T dto)
     {
-        var validator = new UpdateRoundResultValidator();
+        var validator = _serviceProvider.GetRequiredService<IValidator<T>>();
 
-        var result = validator.Validate(roundResult);
+        var result = validator.Validate(dto);
 
         return new ValidationResult
         {

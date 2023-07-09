@@ -22,7 +22,7 @@ public class GameProcessorService : IGameProcessorService
 
     public async Task<Result<GameConfigDto>> StartGame(CreateGameConfigDto gameConfig)
     {
-        var validationResult = _validator.ValidateStartGame(gameConfig);
+        var validationResult = _validator.Validate(gameConfig);
 
         if (!validationResult.IsValid)
         {
@@ -224,7 +224,7 @@ public class GameProcessorService : IGameProcessorService
             return Result.Error(ErrorMessages.RoundResultNotFound, ApiErrorCodes.NotFound);
         }
 
-        var validationResult = _validator.ValidateUpdateRoundResult(roundResultDto);
+        var validationResult = _validator.Validate(roundResultDto);
 
         if (!validationResult.IsValid)
         {
