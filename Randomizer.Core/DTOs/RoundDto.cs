@@ -7,5 +7,7 @@ public record RoundDto
 
     public bool IsCompleted { get; init; }
 
+    public int SequenceNumber { get; init; }
+
     public Guid GameConfigId { get; init; }
 }

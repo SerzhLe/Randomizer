@@ -1,4 +1,5 @@
-﻿using Randomizer.Core.DTOs;
+﻿using Randomizer.Common;
+using Randomizer.Core.DTOs;
 using Randomizer.Domain.Entities;
 using Randomizer.Persistence.Dapper;
 
@@ -75,4 +76,40 @@ using var uow = new UnitOfWork(dbConnector);
 //var game = await uow.GameConfigRepository.GetFullAsync(Guid.Parse("cba882c2-5fb9-41f1-9ea3-3238c6d90dc2"));
 
 //await uow.SaveChangesAsync();
+
+//await uow.RoundRepository.AddAsync(new RoundEntity
+//{
+//    IsCompleted = false,
+//    IsCurrent = true,
+//    GameConfigId = Guid.Parse("cb446e0f-a1ff-45d4-baea-7221e35e6950")
+//});
+
+//await uow.RoundRepository.UpdateAsync(new RoundEntity
+//{
+//    Id = Guid.Parse("04c48437-0f6a-4436-9a74-cd0abf49a6b6"),
+//    IsCompleted = true,
+//    IsCurrent = false,
+//});
+
+var gameData = await uow.GameConfigRepository.FindAsync(Guid.Parse("cb446e0f-a1ff-45d4-baea-7221e35e6950"));
+
+
+
+var currentRound = await uow.RoundRepository.GetByIdAsync(Guid.Parse("04c48437-0f6a-4436-9a74-cd0abf49a6b6"));
+
+
+currentRound.IsCurrent = false;
+currentRound.IsCompleted = true;
+
+await uow.RoundRepository.UpdateAsync(currentRound);
+
+var newStartedRound = await uow.RoundRepository.AddAsync(new RoundEntity
+{
+    IsCurrent = true,
+    IsCompleted = false,
+    GameConfigId = Guid.Parse("cb446e0f-a1ff-45d4-baea-7221e35e6950")
+});
+
+await uow.SaveChangesAsync();
+
 Console.ReadKey();

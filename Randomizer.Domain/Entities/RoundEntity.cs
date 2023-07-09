@@ -10,6 +10,8 @@ public class RoundEntity : IEntity
 
     public bool IsCurrent { get; set; }
 
+    public int SequenceNumber { get; set; }
+
     public Guid GameConfigId { get; set; }
 
     public GameConfigEntity? GameConfig { get; set; }

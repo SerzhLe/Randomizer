@@ -147,7 +147,6 @@ public class GameConfigRepository : IGameConfigRepository
             param: param,
             splitOn: "Id, Id, Id");
 
-
         foreach (var round in game.Rounds)
         {
             round.RoundResults.AddRange(roundResults.Where(x => x.RoundId == round.Id));

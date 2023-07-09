@@ -173,7 +173,7 @@ public class GameProcessorService
         });
     }
 
-    public async Task<Result<RoundDto>> StartNewRound(Guid gameConfigId)
+    public async Task<Result<RoundDto>> StartNewRound(Guid gameConfigId, Guid currentRoundId)
     {
         var gameData = await _uow.GameConfigRepository.FindAsync(gameConfigId);
 
@@ -182,23 +182,24 @@ public class GameProcessorService
             return Result<RoundDto>.Error(ErrorMessages.GameConfigNotFound, ApiErrorCodes.NotFound);
         }
 
-        var currentRound = gameData.Rounds.SingleOrDefault(x => x.IsCurrent);
+        var currentRound = await _uow.RoundRepository.GetByIdAsync(currentRoundId);
 
-        if (currentRound is not null)
+        if (currentRound is  null)
         {
-            currentRound.IsCurrent = false;
-            currentRound.IsCompleted = true;
+            return Result<RoundDto>.Error(ErrorMessages.CurrentRoundNotFound, ApiErrorCodes.NotFound);
         }
 
-        var newStartedRound = new RoundEntity
+        currentRound.IsCurrent = false;
+        currentRound.IsCompleted = true;
+
+        await _uow.RoundRepository.UpdateAsync(currentRound);
+
+        var newStartedRound = await _uow.RoundRepository.AddAsync(new RoundEntity
         {
-            Id = Guid.NewGuid(),
             IsCurrent = true,
             IsCompleted = false,
             GameConfigId = gameConfigId
-        };
-
-        await _uow.RoundRepository.AddAsync(newStartedRound);
+        });
 
         await _uow.SaveChangesAsync();
 
@@ -207,6 +208,7 @@ public class GameProcessorService
             Id = newStartedRound.Id,
             IsCompleted = newStartedRound.IsCompleted,
             IsCurrent = newStartedRound.IsCurrent,
+            SequenceNumber = newStartedRound.SequenceNumber,
             GameConfigId = newStartedRound.GameConfigId
         });
     }

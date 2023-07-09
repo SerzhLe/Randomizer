@@ -17,13 +17,21 @@ public class RoundRepository : IRoundRepository
 
     public async Task<RoundEntity> AddAsync(RoundEntity entity)
     {
+        var sqlexistingRoundsCount = @"SELECT COUNT(game_config_round_id) FROM game_config_round
+                                       WHERE game_config_id = @GameConfigId";
+
+        var existingRoundsCount = (await _dbConnection.QueryAsync<int>(
+            sqlexistingRoundsCount,
+            new { entity.GameConfigId },
+            _transaction)).SingleOrDefault();
+
         entity.Id = Guid.NewGuid();
+        entity.SequenceNumber = existingRoundsCount + 1;
 
-        var sql = "INSERT INTO game_config_round(game_config_round_id, is_completed, is_current, game_config_id) VALUES(@Id, @IsCompleted, @IsCurrent, @GameConfigId)";
+        var sql = @"INSERT INTO game_config_round(game_config_round_id, is_completed, is_current, sequence_number, game_config_id) 
+                    VALUES(@Id, @IsCompleted, @IsCurrent, @SequenceNumber, @GameConfigId)";
 
-        var command = new CommandDefinition(sql, new { entity.Id, entity.IsCompleted, entity.IsCurrent, entity.GameConfigId }, transaction: _transaction);
-
-        await _dbConnection.ExecuteAsync(command);
+        await _dbConnection.ExecuteAsync(sql, entity, _transaction);
 
         return entity;
     }
@@ -32,17 +40,13 @@ public class RoundRepository : IRoundRepository
     {
         var sql = "SELECT game_config_round_id Id, is_completed IsCompleted, is_current IsCurrent, game_config_id GameConfigId FROM game_config_round WHERE game_config_round_id = @Id";
 
-        var command = new CommandDefinition(sql, new { id }, transaction: _transaction);
-
-        return (await _dbConnection.QueryAsync<RoundEntity>(command)).SingleOrDefault();
+        return (await _dbConnection.QueryAsync<RoundEntity>(sql, new { id }, _transaction)).SingleOrDefault();
     }
 
     public async Task UpdateAsync(RoundEntity entity)
     {
         var sql = "UPDATE game_config_round SET is_completed = @IsCompleted, is_current = @IsCurrent WHERE game_config_round_id = @Id";
 
-        var command = new CommandDefinition(sql, new { entity.IsCompleted, entity.IsCurrent, entity.Id }, transaction: _transaction);
-
-        await _dbConnection.ExecuteAsync(command);
+        await _dbConnection.ExecuteAsync(sql, entity, _transaction);
     }
 }
