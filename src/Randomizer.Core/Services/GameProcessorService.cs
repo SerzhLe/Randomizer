@@ -186,6 +186,12 @@ public class GameProcessorService : IGameProcessorService
         }
 
         var rounds = await _uow.RoundRepository.GetAllByGameConfigId(gameConfigId);
+
+        if (gameData.CountOfRounds == rounds.Count)
+        {
+            return Result<RoundDto>.Error(ErrorMessages.UnableToStartRound, ApiErrorCodes.BadRequest);
+        }
+
         var currentRound = rounds.SingleOrDefault(x => x.IsCurrent);
 
         if (currentRound is not null)
@@ -211,7 +217,8 @@ public class GameProcessorService : IGameProcessorService
             IsCompleted = newStartedRound.IsCompleted,
             IsCurrent = newStartedRound.IsCurrent,
             SequenceNumber = newStartedRound.SequenceNumber,
-            GameConfigId = newStartedRound.GameConfigId
+            GameConfigId = newStartedRound.GameConfigId,
+            LastRound = (rounds.Count + 1) == gameData.CountOfRounds
         });
     }
 

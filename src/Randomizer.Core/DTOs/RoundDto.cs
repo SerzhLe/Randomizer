@@ -10,4 +10,6 @@ public record RoundDto
     public int SequenceNumber { get; init; }
 
     public Guid GameConfigId { get; init; }
+
+    public bool LastRound { get; init; }
 }

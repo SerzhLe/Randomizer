@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 var connectionString = "Host=localhost:5430;Database=skill_up;Username=postgres;Password=kwxzqa2369475;";
 
-var dbConnector = new DbConnector(connectionString);
+var dbConnector = new DbConnector(connectionStwwring);
 
 using var uow = new UnitOfWork(dbConnector);
 
