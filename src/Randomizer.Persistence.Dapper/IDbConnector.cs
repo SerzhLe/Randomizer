@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace Randomizer.Dapper;
+namespace Randomizer.Persistence.Dapper;
 public interface IDbConnector
 {
     IDbConnection CreateConnection();

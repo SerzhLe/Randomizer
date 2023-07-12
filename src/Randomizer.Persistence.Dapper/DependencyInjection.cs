@@ -1,9 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Randomizer.Core.Abstractions.Persistence;
-using Randomizer.Dapper;
 
-namespace Randomizer.Persistence;
+namespace Randomizer.Persistence.Dapper;
 public static class DependencyInjection
 {
     public static IServiceCollection AddPersistenceServices(this IServiceCollection services)

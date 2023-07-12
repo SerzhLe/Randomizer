@@ -1,7 +1,7 @@
 using Randomizer.Api.Extensions;
 using Randomizer.Core.Services;
 using Randomizer.Infrastructure;
-using Randomizer.Persistence;
+using Randomizer.Persistence.Dapper;
 
 var builder = WebApplication.CreateBuilder(args);
 

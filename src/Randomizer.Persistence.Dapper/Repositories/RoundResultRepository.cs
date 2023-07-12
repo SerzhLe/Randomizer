@@ -3,7 +3,7 @@ using Randomizer.Core.Abstractions.Persistence;
 using Randomizer.Domain.Entities;
 using System.Data;
 
-namespace Randomizer.Persistence.Dapper;
+namespace Randomizer.Persistence.Dapper.Repositories;
 public class RoundResultRepository : IRoundResultRepository
 {
     private readonly IDbConnection _dbConnection;
