@@ -44,4 +44,12 @@ public class GameProcessorController : BaseController
 
         return result.ToActionResult();
     }
+
+    [HttpGet("game/{gameConfigId:guid}/gameResults")]
+    public async Task<ActionResult<RoundResultDto>> GetGameResults(Guid gameConfigId)
+    {
+        var result = await _gameProcessorService.GetGameResults(gameConfigId);
+
+        return result.ToActionResult();
+    }
 }

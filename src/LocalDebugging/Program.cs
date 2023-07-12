@@ -4,11 +4,12 @@ using Randomizer.Domain.Entities;
 using Randomizer.Persistence.Dapper;
 using System.Diagnostics;
 
-var connectionString = "Host=localhost:5430;Database=skill_up;Username=postgres;Password=kwxzqa2369475;";
+var connectionString = "Host=localhost:5430;Database=skill_up;Username=postgres;Password=IiIi3jTOpTTcMeKzWU9e;";
 
-var dbConnector = new DbConnector(connectionStwwring);
+var dbConnector = new DbConnector(connectionString);
 
 using var uow = new UnitOfWork(dbConnector);
+
 
 //var result = await uow.GameConfigRepository.GetById(Guid.Parse("cba882c2-5fb9-41f1-9ea3-3238c6d90dc2"));
 

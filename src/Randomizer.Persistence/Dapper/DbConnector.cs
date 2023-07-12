@@ -12,11 +12,5 @@ public class DbConnector : IDbConnector
 		_connectionString = configuration.GetConnectionString("DbConnection");
 	}
 
-	//public DbConnector(string connection)
-	//{
-	//       _connectionString = connection;
-
-	//   }
-
 	public IDbConnection CreateConnection() => new NpgsqlConnection(_connectionString);
 }

@@ -1,4 +1,5 @@
-﻿using Randomizer.Common;
+﻿using Randomizer.Application.DTOs;
+using Randomizer.Common;
 using Randomizer.Core.Abstractions.Infrastructure;
 using Randomizer.Core.Abstractions.Persistence;
 using Randomizer.Core.DTOs;
@@ -248,5 +249,45 @@ public class GameProcessorService : IGameProcessorService
         await _uow.SaveChangesAsync();
 
         return Result.Success();
+    }
+
+    public async Task<Result<GameResultsDto>> GetGameResults(Guid gameConfigId)
+    {
+        var gameData = await _uow.GameConfigRepository.GetFullAsync(gameConfigId);
+
+        if (gameData is null)
+        {
+            return Result<GameResultsDto>.Error(ErrorMessages.GameConfigNotFound, ApiErrorCodes.NotFound);
+        }
+
+        if (gameData.Rounds.Count != gameData.CountOfRounds)
+        {
+            return Result<GameResultsDto>.Error(ErrorMessages.UnableToFinishGame, ApiErrorCodes.BadRequest);
+        }
+
+        var participantsScores = gameData.Rounds
+            .SelectMany(x => x.RoundResults.Select(x => new { x.Score, x.WhoPerformActionId }))
+            .Where(x => x.Score.HasValue)
+            .GroupBy(x => x.WhoPerformActionId)
+            .Select(x => new WinnerDto { Id = x.Key, TotalScore = x.Sum(y => y.Score!.Value) })
+            .ToList();
+
+        var winners = new List<WinnerDto>();
+
+        if (participantsScores.Any())
+        {
+            var highestScore = participantsScores.MaxBy(x => x.TotalScore)!.TotalScore;
+
+            winners = participantsScores.Where(x => x.TotalScore == highestScore).ToList();
+        }
+
+        var gameResults = new GameResultsDto
+        {
+            GameId = gameConfigId,
+            CountOfRounds = gameData.CountOfRounds,
+            Winners = winners
+        };
+
+        return Result<GameResultsDto>.Success(gameResults);
     }
 }
