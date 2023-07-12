@@ -1,12 +1,10 @@
-﻿using Randomizer.Domain.Entities;
-
-namespace Randomizer.Core.DTOs;
+﻿namespace Randomizer.Core.DTOs;
 
 public record RoundResultDto
 {
     public Guid Id { get; init; }
 
-    public double Score { get; init; }
+    public double? Score { get; init; }
 
     public string? Comment { get; init; }
 

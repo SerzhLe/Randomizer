@@ -8,8 +8,10 @@ internal class CreateGameConfigValidator : AbstractValidator<CreateGameConfigDto
 	{
 		RuleFor(x => x.CountOfRounds).NotEmpty().LessThanOrEqualTo(x => x.Messages.Count);
 
-		RuleForEach(x => x.Participants).ChildRules(x => x.RuleFor(x => x.NickName).NotEmpty());
+		RuleForEach(x => x.Participants).NotEmpty();
 
-		RuleForEach(x => x.Messages).ChildRules(x => x.RuleFor(x => x.Content).NotEmpty());
+		RuleForEach(x => x.Messages).NotEmpty();
+
+		RuleFor(x => x.Messages.Count).GreaterThan(x => x.CountOfRounds).OverridePropertyName(x => x.Messages);
     }
 }

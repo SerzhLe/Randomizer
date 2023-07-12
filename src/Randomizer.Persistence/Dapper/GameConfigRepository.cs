@@ -38,30 +38,40 @@ public class GameConfigRepository : IGameConfigRepository
             })
             .ToList();
 
-        var sqlGameConfig = "INSERT INTO game_config (game_config_id, count_of_rounds) VALUES (@Id, @CountOfRounds)";
+        var sqlGameConfig = @"INSERT INTO game_config (game_config_id, count_of_rounds) 
+                              VALUES (@Id, @CountOfRounds)";
 
         await _dbConnection.ExecuteAsync(sqlGameConfig, entity, _transaction);
 
         if (entity.Participants.Any())
         {
-            var sqlParticipants = "INSERT INTO participant (participant_id, nick_name, position, game_config_id) VALUES (@Id, @NickName, @Position, @StartGameConfigId)";
+            var sqlParticipants = @"INSERT INTO participant (participant_id, nick_name, position, game_config_id) 
+                                    VALUES (@Id, @NickName, @Position, @StartGameConfigId)";
 
             await _dbConnection.ExecuteAsync(sqlParticipants, entity.Participants, _transaction);
         }
 
         if (entity.Messages.Any())
         {
-            var sqlMessages = "INSERT INTO message (message_id, content, position, game_config_id) VALUES (@Id, @Content, @Position, @StartGameConfigId)";
+            var sqlMessages = @"INSERT INTO message (message_id, content, position, game_config_id) 
+                                VALUES (@Id, @Content, @Position, @StartGameConfigId)";
 
             await _dbConnection.ExecuteAsync(sqlMessages, entity.Messages, _transaction);
         }
+
+        var displayIdSql = "SELECT display_id DisplayId FROM game_config WHERE game_config_id = @Id";
+
+        var entityDisplayId = (await _dbConnection.QueryAsync<int>(displayIdSql, new { entity.Id })).SingleOrDefault();
+
+        entity.DisplayId = entityDisplayId;
 
         return entity;
     }
 
     public async Task<GameConfigEntity?> FindAsync(Guid id)
     {
-        var sql = "SELECT game_config_id Id, display_id DisplayId, count_of_rounds CountOfRounds FROM game_config WHERE game_config_id = @ID";
+        var sql = @"SELECT game_config_id Id, display_id DisplayId, count_of_rounds CountOfRounds 
+                    FROM game_config WHERE game_config_id = @Id";
 
         var command = new CommandDefinition(sql, new { id });
 

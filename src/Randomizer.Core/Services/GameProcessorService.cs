@@ -34,10 +34,10 @@ public class GameProcessorService : IGameProcessorService
         {
             CountOfRounds = gameConfig.CountOfRounds,
             Messages = gameConfig.Messages
-                .Select(x => new MessageEntity { Content = x.Content })
+                .Select((x, i) => new MessageEntity { Content = x })
                 .ToList(),
             Participants = gameConfig.Participants
-                .Select((x, i) => new ParticipantEntity { NickName = x.NickName, Position = i })
+                .Select((x, i) => new ParticipantEntity { NickName = x })
                 .ToList()
         };
 
@@ -269,7 +269,12 @@ public class GameProcessorService : IGameProcessorService
             .SelectMany(x => x.RoundResults.Select(x => new { x.Score, x.WhoPerformActionId }))
             .Where(x => x.Score.HasValue)
             .GroupBy(x => x.WhoPerformActionId)
-            .Select(x => new WinnerDto { Id = x.Key, TotalScore = x.Sum(y => y.Score!.Value) })
+            .Select(x => new WinnerDto 
+            { 
+                Id = x.Key, 
+                TotalScore = x.Sum(y => y.Score!.Value),
+                NickName = gameData.Participants.SingleOrDefault(y => y.Id == x.Key)?.NickName
+            })
             .ToList();
 
         var winners = new List<WinnerDto>();
