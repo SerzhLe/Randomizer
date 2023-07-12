@@ -1,7 +1,8 @@
 ﻿using Randomizer.Core.Abstractions.Persistence;
+using Randomizer.Persistence.Dapper;
 using System.Data;
 
-namespace Randomizer.Persistence.Dapper;
+namespace Randomizer.Dapper;
 public class UnitOfWork : IUnitOfWork, IDisposable
 {
     private IDbConnection _dbConnection;

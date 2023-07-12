@@ -7,15 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Domain", "Random
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Application", "Randomizer.Core\Randomizer.Application.csproj", "{FEA73CB6-8053-4088-BBE4-51B83C4347A2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Persistence", "Randomizer.Persistence\Randomizer.Persistence.csproj", "{7FB01199-AB7C-46BA-A58E-E7B13C347F18}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Common", "Randomizer.Common\Randomizer.Common.csproj", "{9D8E5E65-8AFA-4641-9633-E4109D252725}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Infrastructure", "Randomizer.Infrastructure\Randomizer.Infrastructure.csproj", "{9F2F0793-3B51-4702-A60C-575368A8D74D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocalDebugging", "LocalDebugging\LocalDebugging.csproj", "{5021486F-807A-48C2-BF77-52F66B1055A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Randomizer.Api", "Randomizer.Api\Randomizer.Api.csproj", "{55E75144-1741-409F-ABFD-DC27DBC3580E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Api", "Randomizer.Api\Randomizer.Api.csproj", "{55E75144-1741-409F-ABFD-DC27DBC3580E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Randomizer.Persistence.Dapper", "Randomizer.Persistence.Dapper\Randomizer.Persistence.Dapper.csproj", "{4008C43A-09CF-442B-9B30-7E1A7217D929}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +31,6 @@ Global
 		{FEA73CB6-8053-4088-BBE4-51B83C4347A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEA73CB6-8053-4088-BBE4-51B83C4347A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEA73CB6-8053-4088-BBE4-51B83C4347A2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7FB01199-AB7C-46BA-A58E-E7B13C347F18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7FB01199-AB7C-46BA-A58E-E7B13C347F18}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7FB01199-AB7C-46BA-A58E-E7B13C347F18}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7FB01199-AB7C-46BA-A58E-E7B13C347F18}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9D8E5E65-8AFA-4641-9633-E4109D252725}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9D8E5E65-8AFA-4641-9633-E4109D252725}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D8E5E65-8AFA-4641-9633-E4109D252725}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +47,10 @@ Global
 		{55E75144-1741-409F-ABFD-DC27DBC3580E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55E75144-1741-409F-ABFD-DC27DBC3580E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55E75144-1741-409F-ABFD-DC27DBC3580E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4008C43A-09CF-442B-9B30-7E1A7217D929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4008C43A-09CF-442B-9B30-7E1A7217D929}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4008C43A-09CF-442B-9B30-7E1A7217D929}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4008C43A-09CF-442B-9B30-7E1A7217D929}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

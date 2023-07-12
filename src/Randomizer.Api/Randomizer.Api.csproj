@@ -13,7 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Randomizer.Core\Randomizer.Application.csproj" />
     <ProjectReference Include="..\Randomizer.Infrastructure\Randomizer.Infrastructure.csproj" />
-    <ProjectReference Include="..\Randomizer.Persistence\Randomizer.Persistence.csproj" />
+    <ProjectReference Include="..\Randomizer.Persistence\Randomizer.Dapper.csproj" />
   </ItemGroup>
 
 </Project>
