@@ -11,5 +11,5 @@ public record RoundDto
 
     public Guid GameConfigId { get; init; }
 
-    public bool LastRound { get; init; }
+    public bool LastRound { get; set; }
 }

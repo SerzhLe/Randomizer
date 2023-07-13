@@ -2,11 +2,11 @@
 using Randomizer.Common;
 using Randomizer.Application.Abstractions.Infrastructure;
 using Randomizer.Application.Abstractions.Persistence;
-using Randomizer.Application.DTOs;
 using Randomizer.Domain.Entities;
 using System.Diagnostics;
 using Randomizer.Application.Validation;
 using Randomizer.Infrastructure.Validation;
+using AutoMapper;
 
 namespace Randomizer.Application.Services;
 
@@ -15,12 +15,18 @@ public class GameProcessorService : IGameProcessorService
     private readonly IUnitOfWork _uow;
     private readonly IRandomService _randomService;
     private readonly ICoreValidator _validator;
+    private readonly IMapper _mapper;
 
-    public GameProcessorService(IUnitOfWork uow, IRandomService randomService, ICoreValidator validator)
+    public GameProcessorService(
+        IUnitOfWork uow,
+        IRandomService randomService,
+        ICoreValidator validator,
+        IMapper mapper)
     {
         _uow = uow;
         _randomService = randomService;
         _validator = validator;
+        _mapper = mapper;
     }
 
     public async Task<Result<GameConfigDto>> StartGame(CreateGameConfigDto gameConfig)
@@ -32,33 +38,15 @@ public class GameProcessorService : IGameProcessorService
             return Result<GameConfigDto>.ValidationError(validationResult.ValidationErrors);
         }
 
-        var gameConfigEntity = new GameConfigEntity
-        {
-            CountOfRounds = gameConfig.CountOfRounds,
-            Messages = gameConfig.Messages
-                .Select((x, i) => new MessageEntity { Content = x })
-                .ToList(),
-            Participants = gameConfig.Participants
-                .Select((x, i) => new ParticipantEntity { NickName = x })
-                .ToList()
-        };
+        var gameConfigEntity = _mapper.Map<CreateGameConfigDto, GameConfigEntity>(gameConfig);
 
-        var result = await _uow.GameConfigRepository.AddAsync(gameConfigEntity);
+        var entity = await _uow.GameConfigRepository.AddAsync(gameConfigEntity);
 
         await _uow.SaveChangesAsync();
 
-        return Result<GameConfigDto>.Success(new GameConfigDto
-        {
-            Id = result.Id,
-            DisplayId = result.DisplayId,
-            CountOfRounds = result.CountOfRounds,
-            Messages = result.Messages
-                .Select(x => new MessageDto { Id = x.Id, Content = x.Content, Position = x.Position })
-                .ToList(),
-            Participants = result.Participants
-                .Select(x => new ParticipantDto { Id = x.Id, NickName = x.NickName, Position = x.Position })
-                .ToList()
-        });
+        var result = _mapper.Map<GameConfigEntity, GameConfigDto>(entity);
+
+        return Result<GameConfigDto>.Success(result);
     }
 
     public async Task<Result<RoundResultDto>> GetRandomData(Guid gameConfigId)
@@ -215,15 +203,10 @@ public class GameProcessorService : IGameProcessorService
 
         await _uow.SaveChangesAsync();
 
-        return Result<RoundDto>.Success(new RoundDto
-        {
-            Id = newStartedRound.Id,
-            IsCompleted = newStartedRound.IsCompleted,
-            IsCurrent = newStartedRound.IsCurrent,
-            SequenceNumber = newStartedRound.SequenceNumber,
-            GameConfigId = newStartedRound.GameConfigId,
-            LastRound = (rounds.Count + 1) == gameData.CountOfRounds
-        });
+        var result = _mapper.Map<RoundEntity, RoundDto>(newStartedRound);
+        result.LastRound = (rounds.Count + 1) == gameData.CountOfRounds;
+
+        return Result<RoundDto>.Success(result);
     }
 
     public async Task<Result> UpdateRoundResultWithFeedback(UpdateRoundResultDto roundResultDto)
@@ -242,12 +225,9 @@ public class GameProcessorService : IGameProcessorService
             return Result.ValidationError(validationResult.ValidationErrors);
         }
 
-        await _uow.RoundResultRepository.UpdateAsync(new RoundResultEntity
-        {
-            Id = roundResultDto.Id,
-            Score = roundResultDto.Score,
-            Comment = roundResultDto.Comment,
-        });
+        var entity = _mapper.Map<UpdateRoundResultDto, RoundResultEntity>(roundResultDto);
+
+        await _uow.RoundResultRepository.UpdateAsync(entity);
 
         await _uow.SaveChangesAsync();
 

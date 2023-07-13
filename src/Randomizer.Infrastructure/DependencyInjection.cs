@@ -11,6 +11,8 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
     {
+        services.AddScoped<IRandomService, RandomService>();
+
         // Pdf services
         GlobalFontSettings.FontResolver = new BasicFontResolver();
         services.AddScoped<BaseContent<GameResultsDocumentDto>, GameResultsContent>();

@@ -1,7 +1,9 @@
 using Randomizer.Api.Extensions;
+using Randomizer.Application;
 using Randomizer.Application.DTOs.FileSystem;
 using Randomizer.Application.Services;
 using Randomizer.Application.Services.DocumentDataFetchers;
+using Randomizer.Application.Validation;
 using Randomizer.Infrastructure;
 using Randomizer.Persistence.Dapper;
 
@@ -10,6 +12,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddPersistenceServices();
 builder.Services.AddInfrastructureServices();
+builder.Services.AddAutoMapper(ApplicationAssemblyReference.Reference);
+builder.Services.AddScoped<ICoreValidator, FluentCoreValidator>();
+
 builder.Services.AddScoped<IGameProcessorService, GameProcessorService>();
 builder.Services.AddScoped<IDocumentDataFetcher<GameResultsDocumentDto>, GameResultsDataFetcher>();
 builder.Services.AddScoped<IDocumentService<GameResultsDocumentDto>, DocumentService<GameResultsDocumentDto>>();

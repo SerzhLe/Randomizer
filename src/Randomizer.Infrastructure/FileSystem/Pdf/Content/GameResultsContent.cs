@@ -91,6 +91,8 @@ public class GameResultsContent : BaseContent<GameResultsDocumentDto>
             roundTable.Format.SpaceAfter = Unit(1);
 
             section.Add(roundTable);
+
+            section.AddParagraph();
         }
 
         section.AddParagraph();

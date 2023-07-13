@@ -1,5 +1,5 @@
 ﻿using PdfSharp.Fonts;
-using Randomizer.Application.Abstractions.Infrastructure;
+using Randomizer.Application;
 using System.Reflection;
 using static Randomizer.Infrastructure.FileSystem.Pdf.PdfCommon;
 
@@ -21,7 +21,7 @@ namespace Randomizer.Infrastructure.FileSystem.Pdf
         {
             if (_fontNames.Contains(faceName))
             {
-                var assembly = Assembly.GetAssembly(typeof(IDocumentGenerator));
+                var assembly = ApplicationAssemblyReference.Reference;
                 var stream = assembly.GetManifestResourceStream($"Randomizer.Application.Fonts.{faceName}.otf");
 
                 using (var reader = new StreamReader(stream))
