@@ -37,6 +37,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Randomizer.Common\Randomizer.Common.csproj" />
     <ProjectReference Include="..\Randomizer.Domain\Randomizer.Domain.csproj" />
   </ItemGroup>

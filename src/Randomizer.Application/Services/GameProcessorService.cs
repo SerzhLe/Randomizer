@@ -5,6 +5,8 @@ using Randomizer.Application.Abstractions.Persistence;
 using Randomizer.Application.DTOs;
 using Randomizer.Domain.Entities;
 using System.Diagnostics;
+using Randomizer.Application.Validation;
+using Randomizer.Infrastructure.Validation;
 
 namespace Randomizer.Application.Services;
 
@@ -23,7 +25,7 @@ public class GameProcessorService : IGameProcessorService
 
     public async Task<Result<GameConfigDto>> StartGame(CreateGameConfigDto gameConfig)
     {
-        var validationResult = _validator.Validate(gameConfig);
+        var validationResult = _validator.Validate<CreateGameConfigValidator, CreateGameConfigDto>(gameConfig);
 
         if (!validationResult.IsValid)
         {
@@ -233,7 +235,7 @@ public class GameProcessorService : IGameProcessorService
             return Result.Error(ErrorMessages.RoundResultNotFound, ApiErrorCodes.NotFound);
         }
 
-        var validationResult = _validator.Validate(roundResultDto);
+        var validationResult = _validator.Validate<UpdateRoundResultValidator, UpdateRoundResultDto>(roundResultDto);
 
         if (!validationResult.IsValid)
         {

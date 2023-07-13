@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using PdfSharp.Fonts;
 using Randomizer.Application.Abstractions.Infrastructure;
 using Randomizer.Application.DTOs.FileSystem;
+using Randomizer.Application.Validation;
 using Randomizer.Infrastructure.FileSystem.Pdf;
 using Randomizer.Infrastructure.FileSystem.Pdf.Content;
 using Randomizer.Infrastructure.Validation;

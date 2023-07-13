@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Randomizer.Application.DTOs;
 
-namespace Randomizer.Infrastructure.Validation;
+namespace Randomizer.Application.Validation;
 internal class CreateGameConfigValidator : AbstractValidator<CreateGameConfigDto>
 {
 	public CreateGameConfigValidator()
