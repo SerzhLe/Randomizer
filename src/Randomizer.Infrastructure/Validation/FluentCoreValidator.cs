@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Randomizer.Common;
-using Randomizer.Core.Abstractions.Infrastructure;
-using Randomizer.Core.DTOs;
+using Randomizer.Application.Abstractions.Infrastructure;
+using Randomizer.Application.DTOs;
 
 namespace Randomizer.Infrastructure.Validation;
 internal class FluentCoreValidator : ICoreValidator

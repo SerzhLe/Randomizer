@@ -1,8 +1,8 @@
 ﻿using Randomizer.Application.DTOs;
 using Randomizer.Common;
-using Randomizer.Core.DTOs;
+using Randomizer.Application.DTOs;
 
-namespace Randomizer.Core.Services;
+namespace Randomizer.Application.Services;
 public interface IGameProcessorService
 {
     Task<Result<GameConfigDto>> StartGame(CreateGameConfigDto gameConfig);

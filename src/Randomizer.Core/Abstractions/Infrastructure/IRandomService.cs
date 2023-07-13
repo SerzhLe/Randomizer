@@ -1,4 +1,4 @@
-﻿namespace Randomizer.Core.Abstractions.Infrastructure;
+﻿namespace Randomizer.Application.Abstractions.Infrastructure;
 
 /// <summary>
 /// Service that generate random number.

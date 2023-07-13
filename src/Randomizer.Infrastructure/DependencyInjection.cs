@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using Randomizer.Core.Abstractions.Infrastructure;
-using Randomizer.Core.DTOs;
+using Randomizer.Application.Abstractions.Infrastructure;
+using Randomizer.Application.DTOs;
 using Randomizer.Infrastructure.Validation;
 using System.Reflection;
 

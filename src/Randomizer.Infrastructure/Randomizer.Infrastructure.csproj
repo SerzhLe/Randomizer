@@ -10,6 +10,7 @@
     <PackageReference Include="FluentValidation" Version="11.6.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.6.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+    <PackageReference Include="PDFsharp-MigraDoc" Version="6.0.0-preview-2" />
   </ItemGroup>
 
   <ItemGroup>

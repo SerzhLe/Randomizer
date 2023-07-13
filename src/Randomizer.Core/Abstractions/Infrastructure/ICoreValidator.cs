@@ -1,6 +1,6 @@
 ﻿using Randomizer.Common;
 
-namespace Randomizer.Core.Abstractions.Infrastructure;
+namespace Randomizer.Application.Abstractions.Infrastructure;
 public interface ICoreValidator
 {
     ValidationResult Validate<T>(T dto);

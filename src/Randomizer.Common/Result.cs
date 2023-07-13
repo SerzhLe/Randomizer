@@ -23,9 +23,9 @@ public class Result
 
 public class Result<T> : Result
 {
-    public T? PayLoad { get; protected init; }
+    public T? Payload { get; protected init; }
 
-    public static Result<T> Success<T>(T payload) => new Result<T> { PayLoad = payload };
+    public static Result<T> Success<T>(T payload) => new Result<T> { Payload = payload };
 
     public new static Result<T> Error(string errorMessage, int apiErrorCode) 
         => new Result<T> { ErrorMessage = errorMessage, ApiErrorCode = apiErrorCode };

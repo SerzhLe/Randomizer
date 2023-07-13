@@ -1,5 +1,5 @@
 using Randomizer.Api.Extensions;
-using Randomizer.Core.Services;
+using Randomizer.Application.Services;
 using Randomizer.Infrastructure;
 using Randomizer.Persistence.Dapper;
 

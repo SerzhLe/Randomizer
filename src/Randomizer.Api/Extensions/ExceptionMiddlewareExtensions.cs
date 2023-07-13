@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
+using Randomizer.Common;
 using System.Net;
 using System.Text.Json;
 
@@ -23,7 +24,7 @@ public static class ExceptionMiddlewareExtensions
                     var error = new
                     {
                         statusCode = context.Response.StatusCode,
-                        message = "Internal Server Error."
+                        message = ErrorMessages.IntervalServerError
                     };
 
                     await context.Response.WriteAsync(JsonSerializer.Serialize(error));

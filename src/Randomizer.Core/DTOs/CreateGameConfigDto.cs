@@ -1,4 +1,4 @@
-﻿namespace Randomizer.Core.DTOs;
+﻿namespace Randomizer.Application.DTOs;
 
 public record CreateGameConfigDto
 {

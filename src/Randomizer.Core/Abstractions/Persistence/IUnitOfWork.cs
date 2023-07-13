@@ -1,4 +1,4 @@
-﻿namespace Randomizer.Core.Abstractions.Persistence;
+﻿namespace Randomizer.Application.Abstractions.Persistence;
 
 public interface IUnitOfWork
 {

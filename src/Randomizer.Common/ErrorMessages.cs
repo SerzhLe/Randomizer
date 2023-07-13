@@ -1,6 +1,7 @@
 ﻿namespace Randomizer.Common;
 public class ErrorMessages
 {
+    public const string DefaultError = "Something went wrong. Please, try again.";
     public const string GameConfigNotFound = "Game Config data not found.";
     public const string RoundNotFound = "Round not found.";
     public const string RoundResultNotFound = "Round Result not found.";

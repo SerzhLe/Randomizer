@@ -1,7 +1,7 @@
-﻿using Randomizer.Core.DTOs;
+﻿using Randomizer.Application.DTOs;
 using Randomizer.Domain.Entities;
 
-namespace Randomizer.Core.Abstractions.Persistence;
+namespace Randomizer.Application.Abstractions.Persistence;
 
 public interface IGameConfigRepository
 {

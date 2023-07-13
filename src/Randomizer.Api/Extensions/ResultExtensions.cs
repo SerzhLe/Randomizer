@@ -18,7 +18,7 @@ public static class ResultExtensions
     {
         if (result.IsSuccessful)
         {
-            return new OkObjectResult(result.PayLoad);
+            return new OkObjectResult(result.Payload);
         }
 
         return HandleErrorResult(result);

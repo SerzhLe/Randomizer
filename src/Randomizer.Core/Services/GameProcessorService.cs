@@ -1,12 +1,12 @@
 ﻿using Randomizer.Application.DTOs;
 using Randomizer.Common;
-using Randomizer.Core.Abstractions.Infrastructure;
-using Randomizer.Core.Abstractions.Persistence;
-using Randomizer.Core.DTOs;
+using Randomizer.Application.Abstractions.Infrastructure;
+using Randomizer.Application.Abstractions.Persistence;
+using Randomizer.Application.DTOs;
 using Randomizer.Domain.Entities;
 using System.Diagnostics;
 
-namespace Randomizer.Core.Services;
+namespace Randomizer.Application.Services;
 
 public class GameProcessorService : IGameProcessorService
 {

@@ -1,4 +1,4 @@
-﻿using Randomizer.Core.Abstractions.Persistence;
+﻿using Randomizer.Application.Abstractions.Persistence;
 using Randomizer.Persistence.Dapper.Repositories;
 using System.Data;
 

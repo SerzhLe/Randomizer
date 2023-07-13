@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Randomizer.Core.Abstractions.Persistence;
+using Randomizer.Application.Abstractions.Persistence;
 
 namespace Randomizer.Persistence.Dapper;
 public static class DependencyInjection

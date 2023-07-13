@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using Randomizer.Core.Abstractions.Persistence;
+using Randomizer.Application.Abstractions.Persistence;
 using Randomizer.Domain.Entities;
 using System.Data;
 

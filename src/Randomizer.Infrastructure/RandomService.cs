@@ -1,4 +1,4 @@
-﻿using Randomizer.Core.Abstractions.Infrastructure;
+﻿using Randomizer.Application.Abstractions.Infrastructure;
 
 namespace Randomizer.Infrastructure;
 internal class RandomService : IRandomService
