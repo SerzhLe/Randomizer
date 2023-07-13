@@ -6,6 +6,8 @@ public class RoundResultEntity : IEntity
 {
     public Guid Id { get; set; }
 
+    public int SequenceNumber { get; set; }
+
     public double? Score { get; set; }
 
     public string? Comment { get; set; }

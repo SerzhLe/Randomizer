@@ -4,6 +4,8 @@ public record RoundResultDto
 {
     public Guid Id { get; init; }
 
+    public int SequenceNumber { get; init; }
+
     public double? Score { get; init; }
 
     public string? Comment { get; init; }

@@ -156,6 +156,7 @@ public class GameProcessorService : IGameProcessorService
         {
             Id = roundResult.Id,
             LastRoundResult = (currentRound.RoundResults.Count + 1) == gameData.Participants.Count,
+            SequenceNumber = roundResult.SequenceNumber,
             WhoPerformAction = new ParticipantDto
             {
                 Id = whoPerformAction.Id,

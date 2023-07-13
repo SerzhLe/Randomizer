@@ -17,11 +17,18 @@ public class RoundResultRepository : IRoundResultRepository
 
     public async Task<RoundResultEntity> AddAsync(RoundResultEntity entity)
     {
-        entity.Id = Guid.NewGuid();
+        var sqlExistingRoundsResultsCount = @"SELECT COUNT(game_config_round_result_id) FROM game_config_round_result
+                                       WHERE game_config_round_id = @RoundId";
 
-        var sql = @"INSERT INTO game_config_round_result (game_config_round_result_id, score, comment,
+        var roundResultCounts = (await _dbConnection.QueryAsync<int>(sqlExistingRoundsResultsCount, entity.RoundId))
+            .SingleOrDefault();
+
+        entity.Id = Guid.NewGuid();
+        entity.SequenceNumber = roundResultCounts + 1;
+
+        var sql = @"INSERT INTO game_config_round_result (game_config_round_result_id, score, comment, sequence_number,
                     who_perform_action_id, who_perform_feedback_id, message_id, game_config_round_id) 
-                    VALUES(@Id, @Score, @Comment, @WhoPerformActionId, @WhoPerformFeedbackId, 
+                    VALUES(@Id, @Score, @Comment, @SequenceNumber, @WhoPerformActionId, @WhoPerformFeedbackId, 
                     @MessageId, @RoundId)";
 
         await _dbConnection.ExecuteAsync(sql, entity, _transaction);
@@ -40,7 +47,7 @@ public class RoundResultRepository : IRoundResultRepository
 
     public async Task<RoundResultEntity?> FindAsync(Guid id)
     {
-        var sql = @"SELECT game_config_round_result_id Id, score Score, comment Comment,
+        var sql = @"SELECT game_config_round_result_id Id, score Score, comment Comment, sequence_number SequenceNumber,
                     who_perform_action_id WhoPerformActionId, who_perform_feedback_id WhoPerformFeedbackId, 
                     message_id MessageId, game_config_round_id RoundId
                     FROM game_config_round_result WHERE game_config_round_result_id = @Id";

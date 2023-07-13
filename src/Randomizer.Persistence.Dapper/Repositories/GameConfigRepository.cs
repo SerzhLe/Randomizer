@@ -134,10 +134,10 @@ public class GameConfigRepository : IGameConfigRepository
 
         var sqlRoundResults = $@"SELECT gcrr.game_config_round_result_id Id, gcrr.who_perform_action_id WhoPerformActionId,
                     gcrr.who_perform_feedback_id WhoPerformFeedbackId, gcrr.message_id MessageId,
-                    gcrr.comment Comment, gcrr.score Score, gcrr.game_config_round_id RoundId,
-                    gcrrp1.participant_id Id, gcrrp1.nick_name NickName, gcrrp1.position Position, 
-                    gcrrp2.participant_id Id, gcrrp2.nick_name NickName, gcrrp2.position Position, 
-                    gcrrm.message_id Id, gcrrm.content Content, gcrrm.position Position
+                    gcrr.comment Comment, gcrr.score Score, gcrr.sequence_number SequenceNumber, 
+                    gcrr.game_config_round_id RoundId, gcrrp1.participant_id Id, gcrrp1.nick_name NickName, 
+                    gcrrp1.position Position, gcrrp2.participant_id Id, gcrrp2.nick_name NickName, 
+                    gcrrp2.position Position, gcrrm.message_id Id, gcrrm.content Content, gcrrm.position Position
                     FROM game_config_round_result gcrr
                     LEFT JOIN participant gcrrp1 ON gcrrp1.participant_id = gcrr.who_perform_action_id
                     LEFT JOIN participant gcrrp2 ON gcrrp2.participant_id = gcrr.who_perform_feedback_id
