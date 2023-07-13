@@ -33,7 +33,7 @@ public class GameResultsContent : BaseContent<GameResultsDocumentDto>
         foreach (var participant in data.Participants.OrderBy(x => x.Position))
         {
             participantsParagraph.AddLineBreak();
-            participantsParagraph.AddFormattedText($"- {participant.NickName}", DefaultFont);
+            participantsParagraph.AddFormattedText($"- {participant.NickName}", BodyFontStyle);
         }
 
         var messagesCell = row.Cells[1];
@@ -43,17 +43,19 @@ public class GameResultsContent : BaseContent<GameResultsDocumentDto>
         foreach (var message in data.Messages.OrderBy(x => x.Position))
         {
             messagesParagraph.AddLineBreak();
-            messagesParagraph.AddFormattedText($"- {message.Content}", DefaultFont);
+            messagesParagraph.AddFormattedText($"- {message.Content}", BodyFontStyle);
         }
 
         section.Add(contentTable);
+
+        section.AddParagraph();
 
         section.AddParagraph("Round Results:", H2FontStyle);
 
         foreach (var round in data.Rounds.OrderBy(x => x.SequenceNumber))
         {
             var roundParagraph = section.AddParagraph($"Round #{round.SequenceNumber}".ToUpper(), H3FontStyle);
-            roundParagraph.Style = DefaultFont;
+            roundParagraph.Style = BodyFontStyle;
 
             var roundTable = new Table
             {
@@ -73,7 +75,7 @@ public class GameResultsContent : BaseContent<GameResultsDocumentDto>
             foreach (var roundResult in round.RoundResults.OrderBy(x => x.SequenceNumber))
             {
                 roundRow = roundTable.AddRow();
-                roundRow.Style = DefaultFont;
+                roundRow.Style = BodyFontStyle;
 
                 roundRow.Cells[0].AddParagraph(roundResult.WhoPerformAction!.NickName);
                 roundRow.Cells[1].AddParagraph(roundResult.WhoPerformFeedback!.NickName);
@@ -91,17 +93,19 @@ public class GameResultsContent : BaseContent<GameResultsDocumentDto>
             section.Add(roundTable);
         }
 
+        section.AddParagraph();
+
         var winnersParagraph = section.AddParagraph("Winners:".ToUpper(), H3FontStyle);
         winnersParagraph.AddLineBreak();
 
         if (!data.Winners.Any())
         {
-            winnersParagraph.AddFormattedText("Everyone is a winner in this game. Well done!", DefaultFont);
+            winnersParagraph.AddFormattedText("Everyone is a winner in this game. Well done!", BodyFontStyle);
         }
 
         foreach (var winner in data.Winners)
         {
-            winnersParagraph.Style = DefaultFont;
+            winnersParagraph.Style = BodyFontStyle;
             winnersParagraph.AddText($"- {winner.NickName}, Total Score: {winner.TotalScore}");
             winnersParagraph.AddLineBreak();
         }

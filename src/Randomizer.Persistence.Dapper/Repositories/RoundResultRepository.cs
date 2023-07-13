@@ -20,7 +20,7 @@ public class RoundResultRepository : IRoundResultRepository
         var sqlExistingRoundsResultsCount = @"SELECT COUNT(game_config_round_result_id) FROM game_config_round_result
                                        WHERE game_config_round_id = @RoundId";
 
-        var roundResultCounts = (await _dbConnection.QueryAsync<int>(sqlExistingRoundsResultsCount, entity.RoundId))
+        var roundResultCounts = (await _dbConnection.QueryAsync<int>(sqlExistingRoundsResultsCount, new { entity.RoundId }))
             .SingleOrDefault();
 
         entity.Id = Guid.NewGuid();

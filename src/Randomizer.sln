@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Domain", "Randomizer.Domain\Randomizer.Domain.csproj", "{5500A412-A7C3-4E03-970E-2B7B1C1E3C24}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Application", "Randomizer.Core\Randomizer.Application.csproj", "{FEA73CB6-8053-4088-BBE4-51B83C4347A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Application", "Randomizer.Application\Randomizer.Application.csproj", "{FEA73CB6-8053-4088-BBE4-51B83C4347A2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Common", "Randomizer.Common\Randomizer.Common.csproj", "{9D8E5E65-8AFA-4641-9633-E4109D252725}"
 EndProject

@@ -23,6 +23,11 @@ public class GameResultsDataFetcher : IDocumentDataFetcher<GameResultsDocumentDt
             return Result<GameResultsDocumentDto>.Error(ErrorMessages.GameConfigNotFound, ApiErrorCodes.NotFound);
         }
 
+        if (gameConfig.Rounds.Count != gameConfig.CountOfRounds)
+        {
+            return Result<GameResultsDocumentDto>.Error(ErrorMessages.UnableToFinishGame, ApiErrorCodes.BadRequest);
+        }
+
         var gameResults = new GameResultsDocumentDto
         {
             Id = gameConfig.Id,

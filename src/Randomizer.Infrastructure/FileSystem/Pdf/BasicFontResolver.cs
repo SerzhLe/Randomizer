@@ -1,10 +1,9 @@
 ﻿using PdfSharp.Fonts;
-using System.IO;
-using System.Linq;
+using Randomizer.Application.Abstractions.Infrastructure;
 using System.Reflection;
-using static LynxMarvelTor.BL.Services.FileSystem.Pdf.PdfCommon;
+using static Randomizer.Infrastructure.FileSystem.Pdf.PdfCommon;
 
-namespace LynxMarvelTor.BL.Services.FileSystem.Pdf
+namespace Randomizer.Infrastructure.FileSystem.Pdf
 {
     public class BasicFontResolver : IFontResolver
     {
@@ -22,8 +21,8 @@ namespace LynxMarvelTor.BL.Services.FileSystem.Pdf
         {
             if (_fontNames.Contains(faceName))
             {
-                var assembly = Assembly.GetExecutingAssembly();
-                var stream = assembly.GetManifestResourceStream($"LynxMarvelTor.BL.Fonts.Gibson.{faceName}.otf");
+                var assembly = Assembly.GetAssembly(typeof(IDocumentGenerator));
+                var stream = assembly.GetManifestResourceStream($"Randomizer.Application.Fonts.{faceName}.otf");
 
                 using (var reader = new StreamReader(stream))
                 {

@@ -82,7 +82,7 @@ public class GameConfigRepository : IGameConfigRepository
     {
         var sql = @"SELECT gc.game_config_id Id, gc.display_id DisplayId, gc.count_of_rounds CountOfRounds, p.participant_id Id, 
                     p.nick_name NickName, p.position Position, m.message_id Id, m.content Content, m.position Position, 
-                    gcr.game_config_round_id Id, gcr.is_completed IsCompleted, gcr.is_current IsCurrent
+                    gcr.game_config_round_id Id, gcr.is_completed IsCompleted, gcr.is_current IsCurrent, gcr.sequence_number SequenceNumber
                     FROM game_config gc
                     LEFT JOIN participant p ON p.game_config_id = gc.game_config_id
                     LEFT JOIN message m ON m.game_config_id = gc.game_config_id

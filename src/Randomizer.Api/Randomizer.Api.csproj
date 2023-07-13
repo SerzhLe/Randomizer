@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Randomizer.Core\Randomizer.Application.csproj" />
+    <ProjectReference Include="..\Randomizer.Application\Randomizer.Application.csproj" />
     <ProjectReference Include="..\Randomizer.Infrastructure\Randomizer.Infrastructure.csproj" />
     <ProjectReference Include="..\Randomizer.Persistence.Dapper\Randomizer.Persistence.Dapper.csproj" />
   </ItemGroup>
