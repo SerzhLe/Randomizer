@@ -2,7 +2,8 @@
 using Randomizer.Application.DTOs;
 
 namespace Randomizer.Infrastructure.Validation;
-internal class UpdateRoundResultValidator : AbstractValidator<UpdateRoundResultDto>
+
+public class UpdateRoundResultValidator : AbstractValidator<UpdateRoundResultDto>
 {
     public UpdateRoundResultValidator()
     {

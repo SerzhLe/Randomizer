@@ -1,4 +1,5 @@
 ﻿namespace Randomizer.Common;
+
 public class ErrorMessages
 {
     public const string DefaultError = "Something went wrong. Please, try again.";

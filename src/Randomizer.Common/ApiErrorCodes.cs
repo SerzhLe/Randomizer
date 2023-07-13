@@ -1,4 +1,5 @@
 ﻿namespace Randomizer.Common;
+
 public class ApiErrorCodes
 {
     public const int BadRequest = 400;

@@ -3,6 +3,7 @@ using Npgsql;
 using System.Data;
 
 namespace Randomizer.Persistence.Dapper;
+
 public class DbConnector : IDbConnector
 {
     private readonly string? _connectionString;

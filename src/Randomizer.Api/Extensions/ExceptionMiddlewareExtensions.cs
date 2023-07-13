@@ -4,6 +4,7 @@ using System.Net;
 using System.Text.Json;
 
 namespace Randomizer.Api.Extensions;
+
 public static class ExceptionMiddlewareExtensions
 {
     public static void ConfigureExceptionHandler(this IApplicationBuilder app, ILogger logger)

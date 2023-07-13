@@ -1,4 +1,5 @@
 ﻿namespace Randomizer.Application.DTOs;
+
 public record RoundDto
 {
     public Guid Id { get; init; }

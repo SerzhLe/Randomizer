@@ -4,6 +4,7 @@ using Randomizer.Domain.Entities;
 using System.Data;
 
 namespace Randomizer.Persistence.Dapper.Repositories;
+
 public class GameConfigRepository : IGameConfigRepository
 {
     private readonly IDbConnection _dbConnection;

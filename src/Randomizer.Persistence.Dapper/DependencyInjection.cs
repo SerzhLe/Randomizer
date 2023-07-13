@@ -2,6 +2,7 @@
 using Randomizer.Application.Abstractions.Persistence;
 
 namespace Randomizer.Persistence.Dapper;
+
 public static class DependencyInjection
 {
     public static IServiceCollection AddPersistenceServices(this IServiceCollection services)

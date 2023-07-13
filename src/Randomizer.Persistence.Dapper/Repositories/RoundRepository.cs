@@ -4,6 +4,7 @@ using Randomizer.Domain.Entities;
 using System.Data;
 
 namespace Randomizer.Persistence.Dapper.Repositories;
+
 public class RoundRepository : IRoundRepository
 {
     private readonly IDbConnection _dbConnection;

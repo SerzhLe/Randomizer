@@ -3,6 +3,7 @@ using Randomizer.Persistence.Dapper.Repositories;
 using System.Data;
 
 namespace Randomizer.Persistence.Dapper;
+
 public class UnitOfWork : IUnitOfWork, IDisposable
 {
     private IDbConnection _dbConnection;

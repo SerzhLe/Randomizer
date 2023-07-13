@@ -7,7 +7,7 @@ using Randomizer.Common;
 using Randomizer.Infrastructure.FileSystem.Pdf.Content;
 using static Randomizer.Infrastructure.FileSystem.Pdf.PdfCommon;
 
-namespace LynxMarvelTor.BL.Services.FileSystem.Pdf;
+namespace Randomizer.Infrastructure.FileSystem.Pdf;
 
 public class PdfGenerator : IDocumentGenerator
 {

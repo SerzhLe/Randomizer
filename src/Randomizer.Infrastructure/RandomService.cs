@@ -1,7 +1,8 @@
 ﻿using Randomizer.Application.Abstractions.Infrastructure;
 
 namespace Randomizer.Infrastructure;
-internal class RandomService : IRandomService
+
+public class RandomService : IRandomService
 {
     public int GetRandomNumber(int minValue, int maxValue)
     {

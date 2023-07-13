@@ -2,7 +2,8 @@
 using Randomizer.Application.DTOs;
 
 namespace Randomizer.Application.Validation;
-internal class CreateGameConfigValidator : AbstractValidator<CreateGameConfigDto>
+
+public class CreateGameConfigValidator : AbstractValidator<CreateGameConfigDto>
 {
 	public CreateGameConfigValidator()
 	{
