@@ -6,6 +6,7 @@
 
 # User-specific files
 /LocalDebugging
+/Randomizer.MVC
 
 *.rsuser
 *.suo

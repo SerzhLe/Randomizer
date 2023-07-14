@@ -51,7 +51,11 @@ public class UnitOfWork : IUnitOfWork, IDisposable
         {
             await Task.Run(() => _transaction.Commit());
         }
-        catch (Exception ex)
+        catch (Exception)
+        {
+            throw;
+        }
+        finally
         {
             _transaction.Rollback();
         }
