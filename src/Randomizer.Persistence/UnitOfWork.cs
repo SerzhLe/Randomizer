@@ -1,8 +1,8 @@
 ﻿using Randomizer.Application.Abstractions.Persistence;
-using Randomizer.Persistence.Dapper.Repositories;
+using Randomizer.Persistence.Repositories;
 using System.Data;
 
-namespace Randomizer.Persistence.Dapper;
+namespace Randomizer.Persistence;
 
 public class UnitOfWork : IUnitOfWork, IDisposable
 {

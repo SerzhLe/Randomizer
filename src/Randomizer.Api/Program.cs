@@ -6,7 +6,7 @@ using Randomizer.Application.Services;
 using Randomizer.Application.Services.DocumentDataFetchers;
 using Randomizer.Application.Validation;
 using Randomizer.Infrastructure;
-using Randomizer.Persistence.Dapper;
+using Randomizer.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 

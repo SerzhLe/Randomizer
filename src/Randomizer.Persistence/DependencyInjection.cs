@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Randomizer.Application.Abstractions.Persistence;
 
-namespace Randomizer.Persistence.Dapper;
+namespace Randomizer.Persistence;
 
 public static class DependencyInjection
 {

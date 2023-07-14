@@ -2,7 +2,7 @@
 using Npgsql;
 using System.Data;
 
-namespace Randomizer.Persistence.Dapper;
+namespace Randomizer.Persistence;
 
 public class DbConnector : IDbConnector
 {

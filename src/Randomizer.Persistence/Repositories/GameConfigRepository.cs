@@ -3,7 +3,7 @@ using Randomizer.Application.Abstractions.Persistence;
 using Randomizer.Domain.Entities;
 using System.Data;
 
-namespace Randomizer.Persistence.Dapper.Repositories;
+namespace Randomizer.Persistence.Repositories;
 
 public class GameConfigRepository : IGameConfigRepository
 {
