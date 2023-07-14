@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Randomizer.Application.DTOs;
+using Randomizer.Application.DTOs.FileSystem;
 using Randomizer.Domain.Entities;
 
 namespace Randomizer.Application.Mapper;
@@ -47,5 +48,11 @@ public class GameConfigMappingProfile : Profile
 			.ForMember(dest => dest.Round, src => src.Ignore())
             .ForMember(dest => dest.RoundId, src => src.Ignore());
 
+		CreateMap<RoundResultEntity, RoundResultDto>();
+
+		// Document Dto Mappings
+		CreateMap<GameConfigEntity, GameResultsDocumentDto>();
+
+		CreateMap<RoundEntity, RoundDocumentDto>();
     }
 }

@@ -248,32 +248,23 @@ public class GameProcessorService : IGameProcessorService
             return Result<GameResultsDto>.Error(ErrorMessages.UnableToFinishGame, ApiErrorCodes.BadRequest);
         }
 
-        var participantsScores = gameData.Rounds
-            .SelectMany(x => x.RoundResults.Select(x => new { x.Score, x.WhoPerformActionId }))
-            .Where(x => x.Score.HasValue)
-            .GroupBy(x => x.WhoPerformActionId)
-            .Select(x => new WinnerDto 
-            { 
-                Id = x.Key, 
-                TotalScore = x.Sum(y => y.Score!.Value),
-                NickName = gameData.Participants.SingleOrDefault(y => y.Id == x.Key)?.NickName
-            })
-            .ToList();
+        var currentRound = gameData.Rounds.SingleOrDefault(x => x.IsCurrent);
 
-        var winners = new List<WinnerDto>();
-
-        if (participantsScores.Any())
+        if (currentRound is null)
         {
-            var highestScore = participantsScores.MaxBy(x => x.TotalScore)!.TotalScore;
-
-            winners = participantsScores.Where(x => x.TotalScore == highestScore).ToList();
+            return Result<GameResultsDto>.Error(ErrorMessages.RoundNotFound, ApiErrorCodes.NotFound);
         }
+
+        currentRound.IsCurrent = false;
+        currentRound.IsCompleted = true;
+
+        await _uow.RoundRepository.UpdateAsync(currentRound);
 
         var gameResults = new GameResultsDto
         {
             GameId = gameConfigId,
             CountOfRounds = gameData.CountOfRounds,
-            Winners = winners
+            Winners = Utils.DefineWinners(gameData.Rounds, gameData.Participants)
         };
 
         return Result<GameResultsDto>.Success(gameResults);
