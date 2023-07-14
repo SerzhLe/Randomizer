@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -7,32 +7,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Fonts\Gibson-Book.otf" />
-    <None Remove="Fonts\Gibson-Heavy.otf" />
-    <None Remove="Fonts\Gibson-Medium.otf" />
-    <None Remove="Fonts\Gibson-Regular.otf" />
-    <None Remove="Fonts\Gibson-Semibold.otf" />
-    <None Remove="Fonts\Gibson-Thin.otf" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include="Fonts\Gibson-Book.otf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Fonts\Gibson-Heavy.otf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Fonts\Gibson-Medium.otf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Fonts\Gibson-Regular.otf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Fonts\Gibson-Semibold.otf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Fonts\Gibson-Thin.otf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
 
@@ -45,6 +36,12 @@
   <ItemGroup>
     <ProjectReference Include="..\Randomizer.Common\Randomizer.Common.csproj" />
     <ProjectReference Include="..\Randomizer.Domain\Randomizer.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Validation\ValidationErrorMessagesStore.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

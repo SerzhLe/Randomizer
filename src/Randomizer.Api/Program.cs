@@ -1,3 +1,4 @@
+using FluentValidation;
 using Randomizer.Api.Extensions;
 using Randomizer.Application;
 using Randomizer.Application.DTOs.FileSystem;
@@ -8,6 +9,13 @@ using Randomizer.Infrastructure;
 using Randomizer.Persistence.Dapper;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// global configs
+ValidatorOptions.Global.DefaultRuleLevelCascadeMode = CascadeMode.Stop;
+ValidatorOptions.Global.LanguageManager = new ValidationLanguageManager
+{
+    Enabled = false,
+};
 
 // Add services to the container.
 builder.Services.AddPersistenceServices();

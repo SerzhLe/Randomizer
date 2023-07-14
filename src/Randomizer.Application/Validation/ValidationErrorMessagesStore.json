@@ -1,0 +1,25 @@
+{
+  "Language": "en",
+  "ErrorMessages": {
+    "NotNullValidator": "Required",
+    "NotEmptyValidator": "Required",
+    "NotEqualValidator": "Cannot be equal to {PropertyValue}",
+    "EqualValidator": "Must be equal to {PropertyValue}",
+    "LengthValidator": "Must be between {MinLength} and {MaxLength} characters",
+    "MaximumLengthValidator": "Max {MaxLength} characters allowed",
+    "MinimumLengthValidator": "Min {MinLength} characters allowed",
+    "LessThanValidator": "Must be less than {ComparisonValue}",
+    "LessThanOrEqualValidator": "Must be less than or equal to {ComparisonValue}",
+    "GreaterThanValidator": "Must be greater than {ComparisonValue}",
+    "GreaterThanOrEqualValidator": "Must be greater than or equal to {ComparisonValue}",
+    "ReqularExpressionValidator": "Not in the correct format",
+    "EmailValidator": "Not a valid email address format",
+    "CreditCardValidator": "Not a valid credit card format",
+    "EnumValidator": "Invalid value",
+    "EmptyValidator": "Must be empty",
+    "NullValidator": "Must be empty",
+    "ExclusiveBetweenValidator": "Must be between {From} and {To} (exclusive)",
+    "InclusiveBetweenValidator": "Must be between {From} and {To} (inclusive)",
+    "ScalePrecisionValidator": "Must not be more than {Digits} digits in total, with allowance for {ExpectedScale} decimals"
+  }
+}
