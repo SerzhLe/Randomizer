@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS game_config_round (
 	game_config_round_id uuid PRIMARY KEY,
 	is_completed BOOLEAN NOT NULL DEFAULT false,
 	is_current BOOLEAN NOT NULL DEFAULT false,
-	sequence_number INT CHECK(sequence_number >= 0) NOT NULL,
+	sequence_number INT CHECK(sequence_number > 0) NOT NULL,
 	game_config_id uuid NOT NULL,
 	CONSTRAINT game_config_round_game_config_id_fkey 
 	FOREIGN KEY (game_config_id) REFERENCES game_config(game_config_id)
@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS game_config_round (
 
 CREATE TABLE IF NOT EXISTS game_config_round_result (
 	game_config_round_result_id uuid PRIMARY KEY,
+	sequence_number INT CHECK(sequence_number > 0) NOT NULL,
 	score float8 NULL,
 	comment varchar(200) NULL,
 	who_perform_action_id uuid NOT NULL,

@@ -22,7 +22,7 @@ public class DocumentService<TDto> : IDocumentService<TDto> where TDto : BaseDoc
 
         if (!dataResult.IsSuccessful)
         {
-            return Result<byte[]>.Error(dataResult.ErrorMessage!, ApiErrorCodes.BadRequest);
+            return Result<byte[]>.Error(dataResult.ErrorMessage!, dataResult.ApiErrorCode!.Value);
         }
 
         if (dataResult.Payload is null)
@@ -34,7 +34,7 @@ public class DocumentService<TDto> : IDocumentService<TDto> where TDto : BaseDoc
 
         if (!result.IsSuccessful)
         {
-            return Result<byte[]>.Error(result.ErrorMessage!, ApiErrorCodes.BadRequest);
+            return Result<byte[]>.Error(result.ErrorMessage!, result.ApiErrorCode!.Value);
         }
 
         return result;

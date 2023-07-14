@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -14,7 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Randomizer.Application\Randomizer.Application.csproj" />
     <ProjectReference Include="..\Randomizer.Infrastructure\Randomizer.Infrastructure.csproj" />
-    <ProjectReference Include="..\Randomizer.Persistence.Dapper\Randomizer.Persistence.Dapper.csproj" />
+    <ProjectReference Include="..\Randomizer.Persistence\Randomizer.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

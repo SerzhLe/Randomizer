@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocalDebugging", "LocalDebu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Api", "Randomizer.Api\Randomizer.Api.csproj", "{55E75144-1741-409F-ABFD-DC27DBC3580E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Randomizer.Persistence.Dapper", "Randomizer.Persistence.Dapper\Randomizer.Persistence.Dapper.csproj", "{4008C43A-09CF-442B-9B30-7E1A7217D929}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randomizer.Persistence", "Randomizer.Persistence\Randomizer.Persistence.csproj", "{4008C43A-09CF-442B-9B30-7E1A7217D929}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
