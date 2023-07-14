@@ -6,7 +6,7 @@ public class Result
 
     public bool IsSuccessful => !ApiErrorCode.HasValue && !ValidationErrors.Any();
 
-    public string? ErrorMessage { get; protected init; }
+    public string ErrorMessage { get; protected init; } = string.Empty;
 
     public int? ApiErrorCode { get; protected init; }
 
