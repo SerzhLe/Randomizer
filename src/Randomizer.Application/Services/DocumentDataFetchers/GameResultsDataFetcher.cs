@@ -29,7 +29,7 @@ public class GameResultsDataFetcher : IDocumentDataFetcher<GameResultsDocumentDt
 
         if (gameConfig.Rounds.Count != gameConfig.CountOfRounds)
         {
-            return Result<GameResultsDocumentDto>.Error(ErrorMessages.UnableToFinishGame, ApiErrorCodes.BadRequest);
+            return Result<GameResultsDocumentDto>.Error(ErrorMessages.GameIsNotFinished, ApiErrorCodes.BadRequest);
         }
 
         var gameResults = _mapper.Map<GameConfigEntity, GameResultsDocumentDto>(gameConfig);

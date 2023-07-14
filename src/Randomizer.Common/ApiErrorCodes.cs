@@ -1,6 +1,6 @@
 ﻿namespace Randomizer.Common;
 
-public class ApiErrorCodes
+public static class ApiErrorCodes
 {
     public const int BadRequest = 400;
     public const int Unauthorized = 401;

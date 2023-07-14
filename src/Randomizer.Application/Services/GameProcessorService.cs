@@ -3,10 +3,10 @@ using Randomizer.Common;
 using Randomizer.Application.Abstractions.Infrastructure;
 using Randomizer.Application.Abstractions.Persistence;
 using Randomizer.Domain.Entities;
-using System.Diagnostics;
 using Randomizer.Application.Validation;
 using Randomizer.Infrastructure.Validation;
 using AutoMapper;
+using System.Diagnostics;
 
 namespace Randomizer.Application.Services;
 

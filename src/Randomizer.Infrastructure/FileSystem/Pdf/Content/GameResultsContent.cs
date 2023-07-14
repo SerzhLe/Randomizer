@@ -111,5 +111,8 @@ public class GameResultsContent : BaseContent<GameResultsDocumentDto>
             winnersParagraph.AddText($"- {winner.NickName}, Total Score: {winner.TotalScore}");
             winnersParagraph.AddLineBreak();
         }
+
+        section.AddParagraph();
+        section.AddParagraph($"Pdf document generated: {DateTime.UtcNow.ToString(FullDateTimeFormat)}");
     }
 }
