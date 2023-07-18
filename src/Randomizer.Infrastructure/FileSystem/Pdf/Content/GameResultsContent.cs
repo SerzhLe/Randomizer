@@ -1,6 +1,7 @@
 ﻿using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
 using Randomizer.Application.DTOs.FileSystem;
+using System.Globalization;
 using static Randomizer.Infrastructure.FileSystem.Pdf.PdfCommon;
 
 namespace Randomizer.Infrastructure.FileSystem.Pdf.Content;
@@ -113,6 +114,6 @@ public class GameResultsContent : BaseContent<GameResultsDocumentDto>
         }
 
         section.AddParagraph();
-        section.AddParagraph($"Pdf document generated: {DateTime.UtcNow.ToString(FullDateTimeFormat)}");
+        section.AddParagraph($"Pdf document generated: {DateTime.UtcNow.ToString(FullDateTimeFormat, CultureInfo.InvariantCulture)}+00:00");
     }
 }

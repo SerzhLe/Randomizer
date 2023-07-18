@@ -62,7 +62,7 @@ public class GameConfigRepository : IGameConfigRepository
 
         var displayIdSql = "SELECT display_id DisplayId FROM game_config WHERE game_config_id = @Id";
 
-        var entityDisplayId = (await _dbConnection.QueryAsync<int>(displayIdSql, new { entity.Id })).SingleOrDefault();
+        var entityDisplayId = (await _dbConnection.QueryAsync<int>(displayIdSql, new { entity.Id }, _transaction)).SingleOrDefault();
 
         entity.DisplayId = entityDisplayId;
 
@@ -130,6 +130,11 @@ public class GameConfigRepository : IGameConfigRepository
         var roundIds = game.Rounds
             .Select((x, i) => ($"@Id{i}", x.Id))
             .ToDictionary(x => x.Item1, x => (object)x.Id);
+
+        if (!roundIds.Any())
+        {
+            return game;
+        }
 
         var param = new DynamicParameters(roundIds);
 

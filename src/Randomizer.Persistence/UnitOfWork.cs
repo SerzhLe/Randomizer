@@ -53,11 +53,8 @@ public class UnitOfWork : IUnitOfWork, IDisposable
         }
         catch (Exception)
         {
-            throw;
-        }
-        finally
-        {
             _transaction.Rollback();
+            throw;
         }
     }
 
